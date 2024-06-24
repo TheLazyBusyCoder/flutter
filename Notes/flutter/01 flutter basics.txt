@@ -1,0 +1,121 @@
+//////////////////////////
+/// First app  (2024-06-22)
+//////////////////////////
+NOTES:
+
+    // flutter create leo_app
+    // lib>main.dart
+
+        import 'package:flutter/material.dart';
+
+        void main() {
+        runApp(const Text(
+            "hello",
+            textDirection: TextDirection.ltr,
+        ));
+        }
+
+    /*
+    Types of widget 
+    1. stateless widget
+    2. statefull widget 
+    3. inhereated widget
+    */
+
+    // Makeing our first widget 
+
+        import 'package:flutter/material.dart';
+
+        void main() {
+        runApp(const MyApp());
+        }
+
+        class MyApp extends StatelessWidget {
+        const MyApp({super.key});
+
+        @override
+        Widget build(BuildContext context) {
+            return const Text(
+            "hello",
+            textDirection: TextDirection.ltr,
+            );
+        }
+        }
+
+    // Types of design 
+        1. Material design (google)
+        return MaterialApp(); 
+        2. cupertino design (apple)
+        return CupertinoApp();
+
+    // Material design 
+
+        import 'package:flutter/material.dart';
+
+        void main() {
+        runApp(const MyApp());
+        }
+
+        class MyApp extends StatelessWidget {
+        const MyApp({super.key});
+
+        @override
+        Widget build(BuildContext context) {
+            return const MaterialApp(
+            home: Scaffold(body: Text("hello")),
+            );
+        }
+        }
+
+    // Text in the center. 
+        class MyApp extends StatelessWidget {
+        const MyApp({super.key});
+
+        @override
+        Widget build(BuildContext context) {
+            return const MaterialApp(
+            home: Scaffold(
+                body: Center(
+                child: Text("hello"),
+            )),
+            );
+        }
+        }
+
+    // Seperating components in different files. 
+
+        lib>main.dart:
+            import 'package:flutter/material.dart';
+            import 'package:currency_converter/curcon_page.dart';
+
+            void main() {
+            runApp(const MyApp());
+            }
+
+            class MyApp extends StatelessWidget {
+            const MyApp({super.key});
+
+            @override
+            Widget build(BuildContext context) {
+                return const MaterialApp(
+                home: CurConPage(),
+                );
+            }
+            }
+
+        lib>curcon_page.dart: 
+            import 'package:flutter/material.dart';
+
+            class CurConPage extends StatelessWidget {
+            const CurConPage({super.key});
+
+            @override
+            Widget build(BuildContext context) {
+                return const Scaffold(
+                    body: Center(
+                child: Text("hello"),
+                ));
+            }
+            }
+
+

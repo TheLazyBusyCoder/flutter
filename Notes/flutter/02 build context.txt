@@ -1,0 +1,346 @@
+//////////////////////////
+/// BUILD CONTEXT (2024-06-22)
+//////////////////////////
+NOTES:
+
+    - navigations , theams 
+    - location of the widget in the widget tree. 
+
+    // Directory structure 
+
+    lib>
+        pages>
+            page1.dart
+            page2.dart
+        main.dart
+
+//////////////////////////
+/// ColourBox (2024-06-22)
+//////////////////////////
+NOTES:
+
+    import 'package:flutter/material.dart';
+
+    class CurConPage extends StatelessWidget {
+    const CurConPage({super.key});
+
+    @override
+    Widget build(BuildContext context) {
+        return const Scaffold(
+            body: ColoredBox(
+                color: Color.fromRGBO(255, 0, 0, 1),
+                child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [Text('0')],
+                )));
+    }
+    }
+
+//////////////////////////
+/// Currency Converter App start (2024-06-22)
+//////////////////////////
+NOTES:
+
+  import 'package:flutter/material.dart';
+
+  class CurConPage extends StatelessWidget {
+    const CurConPage({super.key});
+
+    @override
+    Widget build(BuildContext context) {
+      return const Scaffold(
+          backgroundColor: Colors.black,
+          body: Center(
+              child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                '0',
+                style: TextStyle(
+                    fontSize: 45,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              )
+            ],
+          )));
+    }
+  }
+
+//////////////////////////
+/// Colours (2024-06-23)
+//////////////////////////
+NOTES:
+
+  backgroundColor: Colors.black
+  backgroundColor: Color.fromRGBO(0, 0, 0, 1),
+
+//////////////////////////
+/// TextField (2024-06-23)
+//////////////////////////
+NOTES:
+
+  // label
+    TextField(
+                decoration: InputDecoration(
+                    label: Text(
+                  "Enter any number",
+                  style: TextStyle(color: Colors.white),
+                ))
+
+  // labelText
+
+    TextField(
+                  decoration: InputDecoration(labelText: "Enter something")),
+
+  // icon
+
+      TextField(
+                style: TextStyle(fontSize: 35, color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: "Enter some number",
+                  hintStyle: TextStyle(color: Colors.white),
+                  prefixIcon: Icon(Icons.monetization_on_outlined),
+                ),
+              ),
+
+//////////////////////////
+/// Padding/Container (2024-06-23)
+//////////////////////////
+NOTES:
+
+  padding: EdgeInsets.all(15.0),
+
+    Padding(
+                padding: EdgeInsets.only(left: 25, right: 25, top: 0, bottom: 0),
+                child: Widget?
+    );
+
+  lib>curcon_page.dart: 
+    import 'package:flutter/material.dart';
+
+    class CurConPage extends StatelessWidget {
+      const CurConPage({super.key});
+
+      @override
+      Widget build(BuildContext context) {
+        // can have anything here like react js.
+        return Scaffold(
+          backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
+          body: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '0',
+                  style: TextStyle(
+                      fontSize: 45,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.only(left: 25, right: 25, top: 0, bottom: 0),
+                  child: const TextField(
+                    keyboardType: TextInputType.numberWithOptions(
+                      decimal: true,
+                      signed: true,
+                    ),
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: "Enter some number",
+                      hintStyle: TextStyle(color: Colors.black),
+                      prefixIcon: Icon(
+                        Icons.monetization_on_outlined,
+                        color: Colors.black,
+                        size: 25,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+
+//////////////////////////
+/// BUTTONS (2024-06-23)
+//////////////////////////
+NOTES:
+
+  // basic 
+
+    TextButton(
+                onPressed: () {
+                  print("hello");
+                },
+                child: const Text("hello"),
+              )
+
+  // colours 
+
+      TextButton(
+                style: const ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(Colors.blue),
+                ),
+                onPressed: () {
+                  if (kDebugMode) {
+                    print("hello");
+                  }
+                },
+                child: const Text("hello"),
+              ),
+
+  // for shadow button you need elevated buttons
+
+  // if you dont want to write WidgetStatePropertyAll every time use: 
+
+  TextButton.styleFrom(), it directly has the properties. 
+
+  // final button 
+
+    import 'package:flutter/foundation.dart';
+    import 'package:flutter/material.dart';
+
+    class CurConPage extends StatelessWidget {
+      const CurConPage({super.key});
+
+      @override
+      Widget build(BuildContext context) {
+        // can have anything here like react js.
+        return Scaffold(
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          body: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '0',
+                  style: TextStyle(
+                      fontSize: 45,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 0, 0, 0)),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                      left: 35, right: 35, top: 25, bottom: 25),
+                  child: const TextField(
+                    keyboardType: TextInputType.numberWithOptions(
+                      decimal: true,
+                      signed: true,
+                    ),
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            style: BorderStyle.solid,
+                            width: 3.0,
+                            color: Color.fromARGB(255, 160, 244, 238)),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(35),
+                        ), //11:24:44
+                      ),
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 255, 255, 255),
+                      hintText: "Enter some number",
+                      hintStyle: TextStyle(color: Colors.black),
+                      prefixIcon: Icon(
+                        Icons.monetization_on,
+                        color: Colors.black,
+                        size: 25,
+                      ),
+                    ),
+                  ),
+                ),
+                TextButton(
+                  style: const ButtonStyle(
+                    // shape: WidgetStatePropertyAll(CircleBorder()),
+                    fixedSize: WidgetStatePropertyAll(Size(200, 50)),
+                    foregroundColor:
+                        WidgetStatePropertyAll(Color.fromARGB(255, 255, 255, 255)),
+                    backgroundColor:
+                        WidgetStatePropertyAll(Color.fromARGB(255, 160, 244, 238)),
+                  ),
+                  onPressed: () {
+                    if (kDebugMode) {
+                      print("hello");
+                    }
+                  },
+                  child: const Text(
+                    "Convert",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+
+//////////////////////////
+/// App bar (2024-06-23)
+//////////////////////////
+NOTES:
+
+  appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text("Currency Converter"),
+        centerTitle: true,
+      ),
+
+//////////////////////////
+/// Input Controller (2024-06-23)
+//////////////////////////
+NOTES:
+
+Widget build(BuildContext context) {
+    final TextEditingController tec = TextEditingController();
+
+  onPressed: () {
+                if (kDebugMode) {
+                  print(double.parse(tec.text) * 81);
+                }
+              },
+
+ TextField(
+                controller: tec,
+
+//////////////////////////
+/// Debug mode (2024-06-23)
+//////////////////////////
+NOTES:
+
+if (kDebugMode) {
+                  print("hello");
+                }
+
+//////////////////////////
+/// EXTRA (2024-06-23)
+//////////////////////////
+NOTES:
+
+// we can rerender the component with this function.
+rebuild(context);
+
+
+

@@ -1,0 +1,9 @@
+////////////////
+/// COMMANDS
+
+// check what tools are required. 
+flutter doctor 
+
+// create a new project 
+flutter create currency_converter
+
