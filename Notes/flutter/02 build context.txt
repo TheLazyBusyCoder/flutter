@@ -313,34 +313,134 @@ NOTES:
 //////////////////////////
 NOTES:
 
-Widget build(BuildContext context) {
-    final TextEditingController tec = TextEditingController();
+  Widget build(BuildContext context) {
+      final TextEditingController tec = TextEditingController();
 
-  onPressed: () {
-                if (kDebugMode) {
-                  print(double.parse(tec.text) * 81);
-                }
-              },
+    onPressed: () {
+                  if (kDebugMode) {
+                    print(double.parse(tec.text) * 81);
+                  }
+                },
 
- TextField(
-                controller: tec,
+  TextField(
+                  controller: tec,
 
 //////////////////////////
 /// Debug mode (2024-06-23)
 //////////////////////////
 NOTES:
 
-if (kDebugMode) {
-                  print("hello");
-                }
+  if (kDebugMode) {
+                    print("hello");
+                  }
 
 //////////////////////////
 /// EXTRA (2024-06-23)
 //////////////////////////
 NOTES:
 
-// we can rerender the component with this function.
-rebuild(context);
+  // we can rerender the component with this function.
+  rebuild(context);
 
+
+//////////////////////////
+/// Currency Converter App Final (2024-06-22)
+//////////////////////////
+NOTES: 
+
+  import 'package:flutter/foundation.dart';
+  import 'package:flutter/material.dart';
+
+  class CurConPage extends StatelessWidget {
+    const CurConPage({super.key});
+
+    @override
+    Widget build(BuildContext context) {
+      final TextEditingController tec = TextEditingController();
+      // can have anything here like react js.
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: const Text("Currency Converter"),
+          centerTitle: true,
+        ),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                '0',
+                style: TextStyle(
+                    fontSize: 45,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 0, 0, 0)),
+              ),
+              Container(
+                padding: const EdgeInsets.only(
+                    left: 35, right: 35, top: 25, bottom: 25),
+                child: TextField(
+                  controller: tec,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                    signed: true,
+                  ),
+                  style: const TextStyle(
+                    fontSize: 25,
+                    color: Colors.black,
+                  ),
+                  decoration: const InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          style: BorderStyle.solid,
+                          width: 3.0,
+                          color: Color.fromARGB(255, 160, 244, 238)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(35),
+                      ), //11:24:44
+                    ),
+                    filled: true,
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
+                    hintText: "Enter some number",
+                    hintStyle: TextStyle(color: Colors.black),
+                    prefixIcon: Icon(
+                      Icons.monetization_on,
+                      color: Colors.black,
+                      size: 25,
+                    ),
+                  ),
+                ),
+              ),
+              TextButton(
+                style: const ButtonStyle(
+                  // shape: WidgetStatePropertyAll(CircleBorder()),
+                  fixedSize: WidgetStatePropertyAll(Size(200, 50)),
+                  foregroundColor:
+                      WidgetStatePropertyAll(Color.fromARGB(255, 255, 255, 255)),
+                  backgroundColor:
+                      WidgetStatePropertyAll(Color.fromARGB(255, 160, 244, 238)),
+                ),
+                onPressed: () {
+                  if (kDebugMode) {
+                    print(double.parse(tec.text) * 81);
+                  }
+                },
+                child: const Text(
+                  "Convert",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  }
 
 

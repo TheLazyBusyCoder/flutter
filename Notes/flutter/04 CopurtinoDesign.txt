@@ -1,0 +1,118 @@
+
+stfl <- snippt for state full widget.
+
+//////////////////////////
+/// Cupertino (2024-06-25)
+//////////////////////////
+NOTES:
+
+// only name changes and some properties. 
+
+
+import 'package:flutter/cupertino.dart';
+
+class CupertinoPage1 extends StatefulWidget {
+  const CupertinoPage1({super.key});
+
+  @override
+  State<CupertinoPage1> createState() => _CupertinoPage1State();
+}
+
+class _CupertinoPage1State extends State<CupertinoPage1> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  double result = 0;
+  final TextEditingController control = TextEditingController();
+
+  @override // run on every frame. if phone refresh rate = 60Hz , it will rebuld
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        backgroundColor: CupertinoColors.white,
+        middle: Text("Currency Converter"),
+      ),
+      backgroundColor: CupertinoColors.white,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              result.toString(),
+              style: const TextStyle(
+                fontSize: 45,
+                fontWeight: FontWeight.bold,
+                color: CupertinoColors.black,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(
+                  left: 35, right: 35, top: 25, bottom: 25),
+              child: CupertinoTextField(
+                controller: control,
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                  signed: true,
+                ),
+                style: const TextStyle(
+                  fontSize: 25,
+                  color: CupertinoColors.black,
+                ),
+                decoration: BoxDecoration(
+                  color: CupertinoColors.white,
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                placeholder: "Enter",
+                prefix: const Icon(CupertinoIcons.money_dollar),
+              ),
+            ),
+            CupertinoButton(
+              onPressed: () {
+                setState(() {
+                  result = double.parse(control.text) * 81;
+                });
+              },
+              child: const Text(
+                "Convert",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+//////////////////////////
+/// Disposing (2024-06-25)
+//////////////////////////
+NOTES:
+
+
+class _CurConPageState extends State<CurConPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  double result = 0;
+  final TextEditingController control = TextEditingController();
+
+  @override
+  void dispose() {
+    control.dispose();
+    super.dispose();
+  }
+
+
+// so that there is no memeory leaks. 
