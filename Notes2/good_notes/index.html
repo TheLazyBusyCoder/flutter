@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="./prism/prism.css" />
+        <script src="./prism/prism.js"></script>
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#allthewidget">Widget</a></li>
+                <li><a target="_blank" href="https://docs.flutter.dev/">Flutter</a></li>
+                <li><a target="_blank" href="https://dart.dev/guides">Dart</a></li>
+                <li><a target="_blank" href="https://dartpad.dev/">Dart Pad</a></li>
+            </ul>
+        </nav>
+        <div id="index" class="block">
+            <hr />
+            <h2>Index</h2>
+            <ol>
+                <li><a href="#1">Dart Programming</a></li>
+                <ul>
+                    <li><a href="#Lvariables">Variables</a></li>
+                    <li><a href="#Ldatatypes">Data Types</a></li>
+                    <li><a href="#Lstring">Strings</a></li>
+                    <li><a href="#Lnumbers">Numbers</a></li>
+                    <li><a href="#Lfunctions">Functions</a></li>
+                </ul>
+            </ol>
+            <hr />
+        </div>
+
+        <div id="1" class="block language-dart">
+            <hr />
+            <h2 id="Lentrypoint">Entry point</h2>
+            <pre><code>void main() { 
+	// every code starts from here. 
+}</code></pre>
+            <hr />
+            <hr />
+            <h2 id="Lvariables">Variables</h2>
+            <pre><code>void main() { 
+	var name = "leo";	// string. 
+	String name = "leo";	// static type. 
+	final num = 5; 
+	const num2 = 5;
+	String? someVar;	// null value. 
+	late String nameN;	// nameN will not will be null. but it will be assigned in the future.
+}</code></pre>
+            <hr />
+            <hr />
+            <h2 id="Ldatatypes">Data types</h2>
+            <pre><code>void main() { 
+	int num1 = 5;
+	double num2 = 1.5;
+	String firstName = "Leo";
+	String lastName = "Harry";
+	print("$firstName $lastName");	// "Leo Harry"
+	bool isMonday = True;
+	var list1 = ['a', 'b'];
+	List list1 = ['A' , 'B'];
+	Map map1 = {'a': 'b', 'b':'c'};
+}</code></pre>
+            <hr />
+            <hr />
+            <h2 id="Lstring">String</h2>
+            <pre><code>void main() {
+	var first_name = "String";
+	var two = first_name + " tow";
+	var three = "${two * 5} $two";
+	print(three.length);
+	print(three.isEmpty);
+	print(three.toUpperCase());
+	print(three.trim());	// remove spaces. 
+	print(three.substring(2,5));
+	print("leo/harry".split('/'));	// ['leo' , 'harry'];
+	// see dart doc to see all the methods. 
+}</code></pre>
+            <hr />
+            <hr />
+            <h2 id="Lnumbers">Numbers</h2>
+            <pre><code>void main() {
+	int num1 = 5;
+	double num2 = 4.5;
+	var num3 = num1 + num2;
+	print(num3);	// 9.5
+
+	// parsing
+	var num4 = num.parse('12');
+	print(num4);
+
+	// double
+	var x = 0.5;
+	print(x.isFinite);	// true
+	print(x.isInfinite); // false
+	print(x.isNan); // false;
+	print(x.isNegative); // false;
+	print(x.round());
+	
+	var y = x.toInt();
+	print(y.toString());
+	print(y.abs());
+
+}</code></pre>
+            <hr />
+            <hr />
+            <h2 id="Lfunctions">Functions</h2>
+            <pre><code>void main() {
+
+}</code></pre>
+            <hr />
+        </div>
+        <!-- 
+<div  class="block language-dart">
+<hr />
+<h2 id="1">Entry point</h2>
+<pre><code>void main() { 
+	// every code starts from here. 
+}</code></pre>
+<hr />
+</div>
+-->
+        <div id="allthewidget"></div>
+        <script src="./script.js"></script>
+    </body>
+</html>
