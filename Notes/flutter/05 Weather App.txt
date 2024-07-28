@@ -189,6 +189,478 @@ NOTES:
   }
 
 
+//////////////////////////
+/// Align Widget (2024-06-26)
+//////////////////////////
+NOTES:
 
+Align(); -> used to align childre. 
+
+
+//////////////////////////
+/// Scrollable (2024-06-26)
+//////////////////////////
+NOTES:
+
+  // the child will be scrollable. 
+
+  SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Card(
+                      elevation: 6,
+                      child: Container(
+                        width: 100,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(1),
+                        ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: const Column(
+
+
+//////////////////////////
+/// FrontEnd Ready (2024-06-27)
+//////////////////////////
+NOTES:
+
+  lib>main: 
+
+    import 'package:flutter/material.dart';
+    import 'package:weather_app/weather_screen.dart';
+
+    void main() {
+      runApp(const MyApp());
+    }
+
+    class MyApp extends StatefulWidget {
+      const MyApp({super.key});
+      @override
+      State<MyApp> createState() => _MyAppPage();
+    }
+
+    class _MyAppPage extends State<MyApp> {
+      @override
+      Widget build(BuildContext context) {
+        return MaterialApp(
+          title: "Weather App",
+          home: const WeatherScreen(),
+          theme: ThemeData.dark(
+            useMaterial3: true,
+          ),
+          debugShowCheckedModeBanner: false,
+        );
+      }
+    }
+
+
+  lib>weather_screen.dart
+
+    import 'dart:ui';
+
+    import 'package:flutter/cupertino.dart';
+    import 'package:flutter/material.dart';
+    import 'package:flutter/painting.dart';
+    import 'package:flutter/rendering.dart';
+    import 'package:flutter/widgets.dart';
+
+    import 'package:weather_app/additional_infor_comp.dart';
+    import 'package:weather_app/my_card.dart';
+
+    class WeatherScreen extends StatelessWidget {
+      const WeatherScreen({super.key});
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: const Text(
+              "Weather App",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  print("hello");
+                },
+                icon: const Icon(Icons.refresh),
+              )
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                // main card
+                SizedBox(
+                  width: double.infinity,
+                  child: Card(
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 10,
+                          sigmaY: 10,
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                "300F",
+                                style: TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Icon(
+                                Icons.cloud,
+                                size: 64,
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Text(
+                                "Rain",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: const Text(
+                    "Weather Forcast",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      MyCard(
+                        time: "3:00",
+                        icon: Icons.cloud,
+                        temperature: "307F",
+                      ),
+                      MyCard(
+                        time: "3:00",
+                        icon: Icons.cloud,
+                        temperature: "307F",
+                      ),
+                      MyCard(
+                        time: "3:00",
+                        icon: Icons.cloud,
+                        temperature: "307F",
+                      ),
+                      MyCard(
+                        time: "3:00",
+                        icon: Icons.cloud,
+                        temperature: "307F",
+                      ),
+                      MyCard(
+                        time: "3:00",
+                        icon: Icons.cloud,
+                        temperature: "307F",
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                // additional information
+                Container(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: const Text(
+                    "Additional Information",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InfoComponent(
+                      Icons.water_drop,
+                      "Humidity",
+                      "92",
+                    ),
+                    InfoComponent(
+                      Icons.air,
+                      "Wind Speed",
+                      "7.2",
+                    ),
+                    InfoComponent(
+                      Icons.beach_access,
+                      "Pressure",
+                      "1000",
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+
+
+  lib>my_card.dart
+
+    import 'package:flutter/material.dart';
+
+    class MyCard extends StatelessWidget {
+      final String time;
+      final String temperature;
+      final IconData icon;
+
+      const MyCard(
+          {super.key,
+          required this.time,
+          required this.temperature,
+          required this.icon});
+      @override
+      Widget build(BuildContext context) {
+        return Card(
+          elevation: 6,
+          child: Container(
+            width: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text(
+                  time,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Icon(
+                  icon,
+                  size: 32,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  temperature,
+                  style: const TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+
+
+  lib>additional_infor_comp.dart
+
+    import 'package:flutter/material.dart';
+
+    class InfoComponent extends StatelessWidget {
+      final IconData icon;
+      final String textData1;
+      final String textData2;
+      const InfoComponent(this.icon, this.textData1, this.textData2, {super.key});
+
+      @override
+      Widget build(BuildContext context) {
+        return Column(
+          children: [
+            Icon(
+              icon,
+              size: 32,
+            ),
+            Text(
+              textData1,
+              style: const TextStyle(
+                fontSize: 22,
+              ),
+            ),
+            Text(
+              textData2,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        );
+      }
+    }
+
+//////////////////////////
+/// Include Http  (2024-06-27)
+//////////////////////////
+NOTES:
+
+
+pubspec.yaml
+
+  copy the version from the web http:^1.1.0
+
+  => flutter pub get
+
+  // after saving it will automatically add it.
+
+
+import 'package:http/http.dart' as http;
+
+// after using setState only your app will show data. 
+// rest every things is same as React. 
+
+//////////////////////////
+/// Loading Indicator (2024-06-28)
+//////////////////////////
+NOTES:
+
+body: ProgressIndicator....
+
+
+CircularProgressIndicator. 
+
+CircularProgressIndicator.adaptive(); // desing , dependent, os 
+
+
+//////////////////////////
+/// FutureBuilder Wedgit (2024-06-28)
+//////////////////////////
+NOTES:
+
+  Future<String,dynamic> getCurrentWeather() async {
+    try {
+      final res = await http.get(Uri.parse(key));
+      final data = jsonDecode(res.body);
+      if (data['res'] != 200) {
+        throw "404 error";
+      }
+      return data;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "Weather App",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              print("hello");
+            },
+            icon: const Icon(Icons.refresh),
+          )
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+
+
+body: FutureBuilder(
+  future: getCurrentWeather(),  // function return an promise. 
+  builder: (context , snapshots) { 
+
+    print(snapshots);
+    if(snapshots.connectionState == ConnectionState.waiting) {
+      return const CircluarIndicator();
+    }
+
+    if(snapshots.hasError) {
+      return Text(snapshots.error.toString());
+    }
+
+    final data = snapshots.data!;
+
+    
+
+    return Padding()
+  }
+),
+
+
+//////////////////////////
+/// Scroll and Render (2024-06-28)
+//////////////////////////
+NOTES:
+
+ListView() // scorllable column 
+
+final data = [];
+
+final x = ListView.builder(
+  itemCount: 5,
+  scrollDirection: Axis.horizontal,
+  itemBuilder: (context, index) {
+    return Widget(
+      data[index + 1];
+    )
+  }
+) 
+
+SizedBox(
+  height: ,
+  child: x,
+);
+
+
+//////////////////////////
+/// INTL -> package (2024-06-28)
+//////////////////////////
+NOTES:
+
+// view the documentation to parse date etc. 
+
+
+
+
+// use setState() -> to refresh. 
 
 

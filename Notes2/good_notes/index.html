@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>Dart Notes</title>
         <link rel="stylesheet" href="./prism/prism.css" />
         <script src="./prism/prism.js"></script>
         <link rel="stylesheet" href="./style.css" />
@@ -11,9 +11,8 @@
     <body>
         <nav class="navbar">
             <ul>
-                <li><a href="#allthewidget">Widget</a></li>
-                <li><a target="_blank" href="https://docs.flutter.dev/">Flutter</a></li>
-                <li><a target="_blank" href="https://dart.dev/guides">Dart</a></li>
+                <li><a target="_blank" href="https://docs.flutter.dev/">Flutter Doc</a></li>
+                <li><a target="_blank" href="https://dart.dev/guides">Dart Doc</a></li>
                 <li><a target="_blank" href="https://dartpad.dev/">Dart Pad</a></li>
             </ul>
         </nav>
@@ -28,6 +27,13 @@
                     <li><a href="#Lstring">Strings</a></li>
                     <li><a href="#Lnumbers">Numbers</a></li>
                     <li><a href="#Lfunctions">Functions</a></li>
+                    <li><a href="#Ldecision">Decision Making</a></li>
+                    <li><a href="#Lloops">Loops</a></li>
+                    <li><a href="#Loops">Oops</a></li>
+                    <li><a href="#Lmaps">Maps</a></li>
+                    <li><a href="#Llist">List</a></li>
+                    <li><a href="#Lfutures">Futures</a></li>
+                    <li><a href="#Lstreams">Streams</a></li>
                 </ul>
             </ol>
             <hr />
@@ -109,10 +115,411 @@
             <hr />
             <h2 id="Lfunctions">Functions</h2>
             <pre><code>void main() {
+	my_print1("leo");
+	my_print2('leo', x: 5);
+}
+void my_print1(String x) {
+	print('hello $x');
+}
+// named argument
+void my_print2(String x , {int x , int y?}) {	// y? if not there dosent matter.
+	print('hello $x');
+}
+// return
+void my_print2(int x , int y) {	
+	return x + y;
+}
+</code></pre>
+            <hr />
+            <hr />
+            <h2 id="Ldecision">Decision Making</h2>
+            <pre><code>void main() {
+	int x = 5;
+	int y = 6;
+	if(x == y) {
+		print('yes');
+	} else {
+		print('no');
+	}
 
+	bool one = true;
+	bool two = false;
+	if(one && tow) {
+		// do something
+	} else if(one || two) {
+		// do something	
+	} else {
+		// do something
+	}
+
+	// switch 
+	int x = 5;
+	switch(x) {
+		case 5: {
+			// do something
+		}
+		break;
+		case 9: {
+			// do something
+		}
+		break;
+		defalut: {
+
+		}
+	}
+
+	// switch 
+	String grade = 'B';
+    age = 5;
+    switch (grade) {
+      case 'A' when age == 5:
+        print('Excellent');
+        break;
+      case 'B':
+        print('Good');
+        break;
+      default:
+        print('Needs Improvement');
+    }
 }</code></pre>
             <hr />
+            <hr />
+            <h2 id="#Lloops">Loops</h2>
+            <pre><code>void main() { 
+	for(int x = 0; x < 5; x++) {
+		// do something. 
+	}
+	var list = ['a' , 'b' , 'c'];
+	for(var char in list) {
+		print(list);
+	}
+	// while loop. 
+	var x = 0;
+	while(x < 10) {
+		print(x);
+		x += 1;
+	}
+	// do while loop.
+	var x = 0;
+	do {
+		print(x);
+		x += 1;
+	} while(x < 10);
+}</code></pre>
+            <hr />
+            <hr />
+            <h2 id="#Loops">OOP's</h2>
+            <pre><code>void main() {
+	var person = Person('Alice', 30);
+	person.introduce();
+}
+class Person {
+		String name;
+		int age;
+		static String nname = "leo";
+
+		Person(this.name, this.age);
+
+		void introduce() {
+			print('Hi, I am $name and I am $age years old');
+		}
+}
+</code></pre>
+            <h3>Inheritance</h3>
+            <pre><code>class Animal {
+    void makeSound() {
+      print('Animal sound');
+    }
+}
+
+class Dog extends Animal {
+	@override
+	void makeSound() {
+		print('Bark');
+	}
+}
+
+void main() {
+	var dog = Dog();
+	dog.makeSound();
+}
+</code></pre>
+            <h3>Getter & Setter</h3>
+            <pre><code>class Human {
+      String name = "leo";
+      String get getName => name;
+}
+
+class Leo extends Human {
+      int age = 20;
+      int get getAge => age;
+}
+
+// leo is now Human so we cannot use properties of Leo in leo. 
+void main() {
+    Human leo = Leo();
+    print((leo as Leo).age);    // we have to use as so that it is treated as Leo 
+	var x = SomeClass();
+	x.h = 5;	// to use the setter
+}
+
+// setter
+class SomeClass {
+	int h = 0;
+	int w = 0;
+	int get getHeight => h;
+	set setHeight(int h) {
+		this.h = h;
+	}
+}</code></pre>
+            <hr />
+            <h3>Class as datatype</h3>
+            <pre><code>// if we use sealed it will give error in switch till we handel all the cases. 
+sealed class Animal {
+	// some
+}
+
+class Dog extends Animal {
+	// some
+}
+
+class Cat extends Animal {
+	// some
+}
+
+void main() {
+	Animal ani = Dog();
+	switch(ani) {
+		case Dog():
+		break;
+		case Cat():
+		break;
+	}
+}</code></pre>
+            <h3>Mixin</h3>
+            <pre><code>  // small piece of code. 
+
+  mixin Jump {
+    int jumpSize = 10;
+  }
+
+  class Leo with Jump {
+    fu() {
+      print(jumpSize);
+    }
+  }</code></pre>
+            <h3>Interface class</h3>
+            <pre><code>  // implement the class but cannot extends this
+  interface class Human {
+
+  }
+
+  // True proper interface: 
+  // this is similler to java
+  infterface abstract class Human {
+
+  }</code></pre>
+            <h3>Base class</h3>
+            <pre><code>// can be extended but not implemented. 
+// class which extends this , should be base/final/sealed
+
+  base class Animal {
+    // some
+  }</code></pre>
+            <h3>Super keyword</h3>
+            <pre><code>class A {
+	var x = "hello";
+	A(this.x) {};
+}
+class B extends A {
+	B() : super("v8");
+	// we can also do: 
+	B(String eng): super(eng);
+}
+			</code></pre>
+
+            <hr />
+            <h2 id="Lmaps">Maps</h2>
+            <pre><code>void main() { 
+	
+	var cars = {'a':'b'};
+	var fruits = Map();
+	fruits['apple'] = 'red';
+	print(fruits['apple']);
+
+	// static type 
+	Map&lt;String, int&gt;
+	// or 
+	Map marks = {
+		'A': 1,
+		'B': 2
+	};
+
+	marks.keys.toList()
+	marks.values.toList()
+
+	marks.forEach((key , val) {
+
+		})
+
+	marks.map() // same as javascript
+
+	print(marks['A']);
+}</code></pre>
+            <h2 id="Llist">Lists</h2>
+            <pre><code>void main() { 
+	var list1 = [1,2,3];
+	list1.add(4);
+	var list2 = List();
+	list1.length 
+	list1.first 
+	list1.last 
+	list1.isEmpty
+}
+
+void main() {
+	// dynamic list
+	List list2 = [10, 'leo'];
+
+	// normal list
+	List&lt;int&gt; list = [10,20,30];
+	int x = list[0];
+}
+
+// Generics 
+
+class Student&lt;DataType&gt; {
+	final DataType name;
+}
+
+void main() {
+	Student&lt;String&gt; leo = Student();
+}
+
+List names = ['a' , 'bb' , 'c'];
+for(final name in names) {
+	print(name);
+}
+
+// Js like stuff  .where
+
+final filtered = names.where((name) => name.length == 2);
+filtered.toList(); // this is necessary to convert iterable to list</code></pre>
+            <hr />
+
+            <hr />
+            <h2 id="Lfutures">Futures</h2>
+            <pre><code>void main() {
+  fetchUserOrder().then((order) {
+    print('Your order is: $order');
+  }).catchError((error) {
+    print('Something went wrong: $error');
+  });
+}
+
+Future&lt;String&gt; fetchUserOrder() {
+  return Future.delayed(const Duration(seconds: 2), () => 'Cappuccino');
+}
+</code></pre>
+            <p>Using async await</p>
+            <pre><code>
+Future&lt;void&gt; printOrderMessage() async {
+  try {
+    var order = await fetchUserOrder();
+    print('Your order is: $order');
+  } catch (error) {
+    print('Something went wrong: $error');
+  }
+}
+
+void main() {
+  printOrderMessage();
+}
+</code></pre>
+            <p>Handling Multiple Futures</p>
+            <pre><code>
+Future&lt;void&gt; main() async {
+  var futures = &lt;Future&gt;[
+    fetchUserOrder(),
+    fetchUserOrder(),
+  ];
+
+  var results = await Future.wait(futures);
+  for (var result in results) {
+    print('Order: $result');
+  }
+}				
+			</code></pre>
+            <hr />
+            <hr />
+            <h2 id="Lstreams">Streams</h2>
+            <pre><code>
+
+void main() {
+	Future&lt;int&gt; some = fun().first;
+	some.then((val) {
+		print(val);
+	});
+}
+
+Stream&lt;int&gt; fun() async* {
+	for (int i = 0; i < 5; i++) {
+		yield i;
+	}
+}
+			</code></pre>
+            <p>Listener</p>
+            <pre><code>
+void main() {
+	fun().listen((val) {
+		print(val);
+	}, onDone: () {}, onError: (e) {});
+}
+
+Stream&lt;int&gt; fun() async* {
+	for (int i = 0; i < 5; i++) {
+		yield i;
+		await Future.delayed(Duration(seconds: 1));
+	}
+}				
+			</code></pre>
+            <p>Stream.periodic</p>
+            <pre><code>
+Stream&lt;int&gt; fun() {
+	Stream.periodic(Duration(seconds: 1), (val) {
+		return val;
+	});
+} // this does not stop. 
+
+// StreamController , added values gets returned. 
+
+import 'dart:async';
+
+void main() {
+	fun();
+}
+
+void fun() {
+	StreamController controller = StreamController&lt;int&gt;();
+	controller.sink.add(1);
+	controller.sink.add(2);
+	controller.sink.add(3);
+	controller.sink.add(4);
+	controller.sink.addError("Fuck off");
+	controller.sink.close();
+
+	controller.stream.listen((val) {
+		print(val);
+	}, onError: (e) {
+		print(e);
+	});
+
+	controller.close();
+}			
+			</code></pre>
+            <hr />
         </div>
+
         <!-- 
 <div  class="block language-dart">
 <hr />

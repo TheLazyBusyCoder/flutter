@@ -3,447 +3,447 @@
 
 // Destructuring 
 
-var (name , age) = fun();
+  var (name , age) = fun();
 
-(String , int) fun() {
-    return ("Name" , 1);
-}
+  (String , int) fun() {
+      return ("Name" , 1);
+  }
 
 // advance destructuring 
 
-void main() {
-  final stuff = fun();
-}
+  void main() {
+    final stuff = fun();
+  }
 
-({String name , int age}) fun() {
-    return (name:"Name" , age:1);
-}
+  ({String name , int age}) fun() {
+      return (name:"Name" , age:1);
+  }
 
 
-void main() {
-    print("hello");
-}
+  void main() {
+      print("hello");
+  }
 
 // variables 
 
-void main() {
-  var name = 'John'; // Type inferred as String
-  int age = 30; // Explicit type
-  double height = 5.9;
-  bool isDeveloper = true;
-}
+  void main() {
+    var name = 'John'; // Type inferred as String
+    int age = 30; // Explicit type
+    double height = 5.9;
+    bool isDeveloper = true;
+  }
 
-// const final 
+  // const final 
 
-void main() {
-  const pi = 3.14;
-  final currentTime = DateTime.now();
-}
+  void main() {
+    const pi = 3.14;
+    final currentTime = DateTime.now();
+  }
 
-// data types 
-Numbers: int, double
-Strings: String
-Booleans: bool
-Lists: List
-Maps: Map
-Sets: Set
-dynamic: any 
-null: 
+  // data types 
+  Numbers: int, double
+  Strings: String
+  Booleans: bool
+  Lists: List
+  Maps: Map
+  Sets: Set
+  dynamic: any 
+  null: 
 
-String? someVar = null;
-print(someVar?.length); // if some value can be null we need to specify this. 
+  String? someVar = null;
+  print(someVar?.length); // if some value can be null we need to specify this. 
 
-print(null ?? 0); // nulish operator like javascript
+  print(null ?? 0); // nulish operator like javascript
 
-void main() {
-  int count = 10;
-  double price = 29.99;
-  String name = 'Dart';
-  bool isActive = true;
-  List<String> colors = ['red', 'green', 'blue'];
-  Map<String, int> ages = {'Alice': 30, 'Bob': 25};
-  Set<int> uniqueNumbers = {1, 2, 3};
-}
+  void main() {
+    int count = 10;
+    double price = 29.99;
+    String name = 'Dart';
+    bool isActive = true;
+    List<String> colors = ['red', 'green', 'blue'];
+    Map<String, int> ages = {'Alice': 30, 'Bob': 25};
+    Set<int> uniqueNumbers = {1, 2, 3};
+  }
 
 // Control Flow Statements
 
-void main() {
-  int score = 85;
-  
-  if (score >= 90) {
-    print('A');
-  } else if (score >= 80) {
-    print('B');
-  } else {
-    print('C');
-  }
-}
-
-void main() {
-  String grade = 'B';
-  age = 5;
-  switch (grade) {
-    case 'A' when age == 5:
-      print('Excellent');
-      break;
-    case 'B':
-      print('Good');
-      break;
-    default:
-      print('Needs Improvement');
-  }
-}
-
-void main() {
-  for (int i = 0; i < 5; i++) {
-    print(i);
+  void main() {
+    int score = 85;
+    
+    if (score >= 90) {
+      print('A');
+    } else if (score >= 80) {
+      print('B');
+    } else {
+      print('C');
+    }
   }
 
-  List<String> fruits = ['apple', 'banana', 'cherry'];
-  for (var fruit in fruits) {
-    print(fruit);
+  void main() {
+    String grade = 'B';
+    age = 5;
+    switch (grade) {
+      case 'A' when age == 5:
+        print('Excellent');
+        break;
+      case 'B':
+        print('Good');
+        break;
+      default:
+        print('Needs Improvement');
+    }
   }
 
-  int count = 0;
-  while (count < 3) {
-    print(count);
-    count++;
-  }
+  void main() {
+    for (int i = 0; i < 5; i++) {
+      print(i);
+    }
 
-  int x = 0;
-  do {
-    print(x);
-    x++;
-  } while (x < 3);
-}
+    List<String> fruits = ['apple', 'banana', 'cherry'];
+    for (var fruit in fruits) {
+      print(fruit);
+    }
+
+    int count = 0;
+    while (count < 3) {
+      print(count);
+      count++;
+    }
+
+    int x = 0;
+    do {
+      print(x);
+      x++;
+    } while (x < 3);
+  }
 
 // Functions
 
-print(() {
-    print("hello");
-}())
+  print(() {
+      print("hello");
+  }())
 
-void main() {
-  greet('John');
-}
+  void main() {
+    greet('John');
+  }
 
-void greet(String name) {
-  print('Hello, $name');
-}
+  void greet(String name) {
+    print('Hello, $name');
+  }
 
-// returning multiple values. 
+  // returning multiple values. 
 
-void main() {
-    var data = fun();
-    print(data.$1);
-    print(data.$2);
-}
+  void main() {
+      var data = fun();
+      print(data.$1);
+      print(data.$2);
+  }
 
-(String , int) fun() {
-    return ("leo" , 1);
-}
+  (String , int) fun() {
+      return ("leo" , 1);
+  }
 
-// arrow function 
+  // arrow function 
 
-void main() {
-  print(add(3, 4));
-}
+  void main() {
+    print(add(3, 4));
+  }
 
-int add(int a, int b) => a + b;
+  int add(int a, int b) => a + b;
 
-// Positional Optional Parameters: Use []
-// Named Optional Parameters: Use {}
+  // Positional Optional Parameters: Use []
+  // Named Optional Parameters: Use {}
 
-void main() {
-  printVolume(10, height: 5);
-}
-// required = that argument is required . 
-void printVolume(int length, {required int width = 2, int height = 1}) {
-  print('Volume: ${length * width * height}');
-}
+  void main() {
+    printVolume(10, height: 5);
+  }
+  // required = that argument is required . 
+  void printVolume(int length, {required int width = 2, int height = 1}) {
+    print('Volume: ${length * width * height}');
+  }
 
 // OOPS 
 ----------------------------------------------------
 
-// Base class
- - can be extended but not implemented. 
- - class which extends this , should be base/final/sealed
+  // Base class
+  - can be extended but not implemented. 
+  - class which extends this , should be base/final/sealed
 
-base class Animal {
-  // some
-}
+  base class Animal {
+    // some
+  }
 
-// Interface class
- - implement the class but cannot extends this
+  // Interface class
+  //implement the class but cannot extends this
 
- interface class Human {
+  interface class Human {
 
- }
+  }
 
-// True proper interface: 
- - this is similler to java
-infterface abstract class Human {
+  // True proper interface: 
+  - this is similler to java
+  infterface abstract class Human {
 
-}
+  }
 
-// Getter && Setter 
+  // Getter && Setter 
 
-class SomeClass {
-    int h = 0;
-    int w = 0;
-    
-    int get getHeight => h;
-    
-    set setHeight(int h) {
-        this.h = h;
+  class SomeClass {
+      int h = 0;
+      int w = 0;
+      
+      int get getHeight => h;
+      
+      set setHeight(int h) {
+          this.h = h;
+      }
+  }
+
+  # to use the setter: 
+
+  void main() {
+      final some = SomeClass();
+      some.h = 5;
+  }
+  ----------------------------------------------------
+
+  class Person {
+    String name;
+    int age;
+
+    Person(this.name, this.age);
+
+    void introduce() {
+      print('Hi, I am $name and I am $age years old');
     }
-}
-
-# to use the setter: 
-
-void main() {
-    final some = SomeClass();
-    some.h = 5;
-}
-----------------------------------------------------
-
-class Person {
-  String name;
-  int age;
-
-  Person(this.name, this.age);
-
-  void introduce() {
-    print('Hi, I am $name and I am $age years old');
   }
-}
 
-void main() {
-  var person = Person('Alice', 30);
-  person.introduce();
+  void main() {
+    var person = Person('Alice', 30);
+    person.introduce();
 
 
-----------------------------------------------------
-// static 
-class SomeClass {
-    static String name = "leo";
-}
-
-----------------------------------------------------
-
-// Inheritance
-
-class Animal {
-  void makeSound() {
-    print('Animal sound');
+  ----------------------------------------------------
+  // static 
+  class SomeClass {
+      static String name = "leo";
   }
-}
 
-class Dog extends Animal {
-  @override
-  void makeSound() {
-    print('Bark');
+  ----------------------------------------------------
+
+  // Inheritance
+
+  class Animal {
+    void makeSound() {
+      print('Animal sound');
+    }
   }
-}
 
-void main() {
-  var dog = Dog();
-  dog.makeSound();
-}
-
-class Human {
-    String name = "leo";
-    String get getName => name;
-}
-
-class Leo extends Human {
-    int age = 20;
-    int get getAge => age;
-}
-
-// leo is now Human so we cannot use properties of Leo in leo. 
-void main() {
-    Human leo = Leo();
-    print((leo as Leo).age);    // we have to use as so that it is treated as Leo 
-}
-
-class Human {
-    String name = "leo";
-    String get getName => name;
-}
-
-class Human {
-    String name = "leo";
-    String get getName => name;
-}
-
-class Leo extends Human {
-    int age = 20;
-    int get getAge => age;
-}
-
-// leo is now Human so we cannot use properties of Leo in leo. 
-void main() {
-    Human leo = Leo();
-    print((leo as Leo).age);    // we have to use as so that it is treated as Leo 
-}
-
-============
-
-class Vehical {
-    int now = 4;
-}
-
-class Leo implements Vechial {
-    @overide
-    now = 1;
-}
-
-abstract class Vehical {
-    int now;
-}
-
-//////////////////////
-/// Class as a datatype
-
-// if we use sealed it will give error in switch till me handel all the cases. 
-sealed class Animal {
-  // some
-}
-
-class Dog extends Animal {
-  // some
-}
-
-class Cat extends Animal {
-  // some
-}
-
-void main() {
-  Animal ani = Dog();
-  switch(ani) {
-    case Dog():
-      break;
-    case Cat():
-      break;
+  class Dog extends Animal {
+    @override
+    void makeSound() {
+      print('Bark');
+    }
   }
-}
 
-=====
-///////////////////
-// MIXIN
-
-// small piece of code. 
-
-mixin Jump {
-  int jumpSize = 10;
-}
-
-class Leo with Jump {
-  fu() {
-    print(jumpSize);
+  void main() {
+    var dog = Dog();
+    dog.makeSound();
   }
-}
+
+  class Human {
+      String name = "leo";
+      String get getName => name;
+  }
+
+  class Leo extends Human {
+      int age = 20;
+      int get getAge => age;
+  }
+
+  // leo is now Human so we cannot use properties of Leo in leo. 
+  void main() {
+      Human leo = Leo();
+      print((leo as Leo).age);    // we have to use as so that it is treated as Leo 
+  }
+
+  class Human {
+      String name = "leo";
+      String get getName => name;
+  }
+
+  class Human {
+      String name = "leo";
+      String get getName => name;
+  }
+
+  class Leo extends Human {
+      int age = 20;
+      int get getAge => age;
+  }
+
+  // leo is now Human so we cannot use properties of Leo in leo. 
+  void main() {
+      Human leo = Leo();
+      print((leo as Leo).age);    // we have to use as so that it is treated as Leo 
+  }
+
+  ============
+
+  class Vehical {
+      int now = 4;
+  }
+
+  class Leo implements Vechial {
+      @overide
+      now = 1;
+  }
+
+  abstract class Vehical {
+      int now;
+  }
+
+  //////////////////////
+  /// Class as a datatype
+
+  // if we use sealed it will give error in switch till we handel all the cases. 
+  sealed class Animal {
+    // some
+  }
+
+  class Dog extends Animal {
+    // some
+  }
+
+  class Cat extends Animal {
+    // some
+  }
+
+  void main() {
+    Animal ani = Dog();
+    switch(ani) {
+      case Dog():
+        break;
+      case Cat():
+        break;
+    }
+  }
+
+  =====
+  ///////////////////
+  // MIXIN
+
+  // small piece of code. 
+
+  mixin Jump {
+    int jumpSize = 10;
+  }
+
+  class Leo with Jump {
+    fu() {
+      print(jumpSize);
+    }
+  }
 
 -----------------------------------------------------
 ///////////////////////////////
 // ( Futures ) Asynchronous Programming
 - function marked async must return future
 
-void main() {
-  print('Fetching data...');
-  fetchData();
-}
-
-Future<void> fetchData() async {
-  var data = await Future.delayed(Duration(seconds: 2), () => 'Data received');
-  print(data);
-}
-
-// promises in JavaScript
-You can create a Future using Future.delayed or Future.value.
-
-Future<String> fetchData() {
-  return Future.delayed(Duration(seconds: 2), () => 'Data received');
-}
-
-// Handling a Future with then
-void main() {
-  print('Fetching data...');
-  fetchData().then((data) {
-    print(data);
-  });
-}
-
-//  Async/Await
-
-Declaring an Async Function
-An async function is one that is marked with the async keyword. Inside this function, you can use the await keywor
-
-Future<void> fetchData() async {
-  var data = await Future.delayed(Duration(seconds: 2), () => 'Data received');
-  print(data);
-}
-
-void main() {
-  print('Fetching data...');
-  fetchData();
-}
-
-// If error occures  (.catch)
-void main() {
-  print('Fetching data...');
-  fetchData().then((data) {
-    print(data);
-  }).catchError((e) {
-    print('Error: $e');
-  });
-}
-
-// Chaining Futures
-Future<void> fetchData() {
-  return Future.delayed(Duration(seconds: 2), () => 'Data received')
-    .then((data) {
-      print(data);
-      return Future.delayed(Duration(seconds: 1), () => 'More data received');
-    })
-    .then((moreData) {
-      print(moreData);
-    });
-}
-
-void main() {
-  print('Fetching data...');
-  fetchData();
-}
-
-// Concurrent Futures
-Future<void> fetchMultipleData() async {
-  var futures = [
-    Future.delayed(Duration(seconds: 2), () => 'Data 1 received'),
-    Future.delayed(Duration(seconds: 3), () => 'Data 2 received'),
-    Future.delayed(Duration(seconds: 1), () => 'Data 3 received'),
-  ];
-  
-  var results = await Future.wait(futures);
-  for (var result in results) {
-    print(result);
+  void main() {
+    print('Fetching data...');
+    fetchData();
   }
-}
 
-void main() {
-  print('Fetching data...');
-  fetchMultipleData();
-}
+  Future<void> fetchData() async {
+    var data = await Future.delayed(Duration(seconds: 2), () => 'Data received');
+    print(data);
+  }
 
-Future<String> async fun() {
-  return Future(() {
-      return 'leo';
-      });
-}
+  // promises in JavaScript
+  You can create a Future using Future.delayed or Future.value.
 
-Future.delayed(Duration(200) , () {
+  Future<String> fetchData() {
+    return Future.delayed(Duration(seconds: 2), () => 'Data received');
+  }
+
+  // Handling a Future with then
+  void main() {
+    print('Fetching data...');
+    fetchData().then((data) {
+      print(data);
     });
+  }
+
+  //  Async/Await
+
+  Declaring an Async Function
+  An async function is one that is marked with the async keyword. Inside this function, you can use the await keywor
+
+  Future<void> fetchData() async {
+    var data = await Future.delayed(Duration(seconds: 2), () => 'Data received');
+    print(data);
+  }
+
+  void main() {
+    print('Fetching data...');
+    fetchData();
+  }
+
+  // If error occures  (.catch)
+  void main() {
+    print('Fetching data...');
+    fetchData().then((data) {
+      print(data);
+    }).catchError((e) {
+      print('Error: $e');
+    });
+  }
+
+  // Chaining Futures
+  Future<void> fetchData() {
+    return Future.delayed(Duration(seconds: 2), () => 'Data received')
+      .then((data) {
+        print(data);
+        return Future.delayed(Duration(seconds: 1), () => 'More data received');
+      })
+      .then((moreData) {
+        print(moreData);
+      });
+  }
+
+  void main() {
+    print('Fetching data...');
+    fetchData();
+  }
+
+  // Concurrent Futures
+  Future<void> fetchMultipleData() async {
+    var futures = [
+      Future.delayed(Duration(seconds: 2), () => 'Data 1 received'),
+      Future.delayed(Duration(seconds: 3), () => 'Data 2 received'),
+      Future.delayed(Duration(seconds: 1), () => 'Data 3 received'),
+    ];
+    
+    var results = await Future.wait(futures);
+    for (var result in results) {
+      print(result);
+    }
+  }
+
+  void main() {
+    print('Fetching data...');
+    fetchMultipleData();
+  }
+
+  Future<String> async fun() {
+    return Future(() {
+        return 'leo';
+        });
+  }
+
+  Future.delayed(Duration(200) , () {
+      });
 
 
 ----------------------------------------------
@@ -451,319 +451,319 @@ Future.delayed(Duration(200) , () {
 ///////////////
 /// HTTP 
 
-// fetch like funciton 
-// first we need to create an xml file and then add dependencies. 
+  // fetch like funciton 
+  // first we need to create an xml file and then add dependencies. 
 
-pub.dev = to see all the packages. 
-import 'package:http/http.dart' as http;
+  pub.dev = to see all the packages. 
+  import 'package:http/http.dart' as http;
 
-void main() {
-  var url = Uri.https('example.com' , 'user/1');
-  http.get(url).then(res => {
-      print(res.body);
-      print(jsonDecode(res.body)); // converting to json
-      });
-}
+  void main() {
+    var url = Uri.https('example.com' , 'user/1');
+    http.get(url).then(res => {
+        print(res.body);
+        print(jsonDecode(res.body)); // converting to json
+        });
+  }
 
 ----------------------------------------------
 ----------------------------------------------
 /////////////////////
 // Streams
 
-void main() {
-  Future<int> some = fun().first;
-  some.then((val) {
-    print(val);
-  });
-}
-
-Stream<int> fun() async* {
-  for (int i = 0; i < 5; i++) {
-    yield i;
+  void main() {
+    Future<int> some = fun().first;
+    some.then((val) {
+      print(val);
+    });
   }
-}
 
-// Listener 
-
-void main() {
-  fun().listen((val) {
-    print(val);
-  }, onDone: () {}, onError: (e) {});
-}
-
-Stream<int> fun() async* {
-  for (int i = 0; i < 5; i++) {
-    yield i;
-    await Future.delayed(Duration(seconds: 1));
+  Stream<int> fun() async* {
+    for (int i = 0; i < 5; i++) {
+      yield i;
+    }
   }
-}
 
-// Stream.periodic 
+  // Listener 
 
-Stream<int> fun() {
-  Stream.periodic(Duration(seconds: 1), (val) {
-    return val;
-  });
-} // this does not stop. 
-
-// StreamController , added values gets returned. 
-
-import 'dart:async';
-
-void main() {
-  fun();
-}
-
-void fun() {
-  StreamController controller = StreamController<int>();
-  controller.sink.add(1);
-  controller.sink.add(2);
-  controller.sink.add(3);
-  controller.sink.add(4);
-  controller.sink.addError("Fuck off");
-  controller.sink.close();
-
-  controller.stream.listen((val) {
-    print(val);
-  }, onError: (e) {
-    print(e);
-  });
-
-  controller.close();
-}
-
-
-
----------------------------------------------
-
-void main() {
-  listenToStream();
-}
-
-void listenToStream() async {
-  var stream = Stream.periodic(Duration(seconds: 1), (count) => count).take(5);
-  await for (var value in stream) {
-    print(value);
+  void main() {
+    fun().listen((val) {
+      print(val);
+    }, onDone: () {}, onError: (e) {});
   }
-}
 
-2. Creating and Using Streams
-Basic Stream Example
-The example you provided creates a stream using Stream.periodic which generates a new value every second.
-
-void main() {
-  listenToStream();
-}
-
-void listenToStream() async {
-  // Create a stream that emits a value every second
-  var stream = Stream.periodic(Duration(seconds: 1), (count) => count).take(5);
-  
-  // Use await for to consume the stream
-  await for (var value in stream) {
-    print(value);
+  Stream<int> fun() async* {
+    for (int i = 0; i < 5; i++) {
+      yield i;
+      await Future.delayed(Duration(seconds: 1));
+    }
   }
-}
 
-Stream.periodic: Generates a sequence of values at regular intervals.
-Stream.fromIterable: Converts an iterable (like a List) into a stream.
+  // Stream.periodic 
 
-void main() {
-  var iterableStream = Stream.fromIterable([1, 2, 3, 4, 5]);
-  
-  iterableStream.listen((value) {
-    print(value);
-  });
-}
+  Stream<int> fun() {
+    Stream.periodic(Duration(seconds: 1), (val) {
+      return val;
+    });
+  } // this does not stop. 
 
-take(n): Takes the first n values from the stream.
-skip(n): Skips the first n values from the stream.
-where(condition): Takes values that meet the condition.
+  // StreamController , added values gets returned. 
 
-void main() {
-  var stream = Stream.periodic(Duration(seconds: 1), (count) => count).take(10);
-  
-  stream
-    .where((value) => value % 2 == 0)
-    .listen((value) {
+  import 'dart:async';
+
+  void main() {
+    fun();
+  }
+
+  void fun() {
+    StreamController controller = StreamController<int>();
+    controller.sink.add(1);
+    controller.sink.add(2);
+    controller.sink.add(3);
+    controller.sink.add(4);
+    controller.sink.addError("Fuck off");
+    controller.sink.close();
+
+    controller.stream.listen((val) {
+      print(val);
+    }, onError: (e) {
+      print(e);
+    });
+
+    controller.close();
+  }
+
+
+
+  ---------------------------------------------
+
+  void main() {
+    listenToStream();
+  }
+
+  void listenToStream() async {
+    var stream = Stream.periodic(Duration(seconds: 1), (count) => count).take(5);
+    await for (var value in stream) {
+      print(value);
+    }
+  }
+
+  2. Creating and Using Streams
+  Basic Stream Example
+  The example you provided creates a stream using Stream.periodic which generates a new value every second.
+
+  void main() {
+    listenToStream();
+  }
+
+  void listenToStream() async {
+    // Create a stream that emits a value every second
+    var stream = Stream.periodic(Duration(seconds: 1), (count) => count).take(5);
+    
+    // Use await for to consume the stream
+    await for (var value in stream) {
+      print(value);
+    }
+  }
+
+  Stream.periodic: Generates a sequence of values at regular intervals.
+  Stream.fromIterable: Converts an iterable (like a List) into a stream.
+
+  void main() {
+    var iterableStream = Stream.fromIterable([1, 2, 3, 4, 5]);
+    
+    iterableStream.listen((value) {
       print(value);
     });
-}
-
-// Listening to a Stream
-
-listen(): Adds a listener to the stream and starts receiving events
-
-void main() {
-  var stream = Stream.fromIterable([1, 2, 3, 4, 5]);
-  
-  stream.listen(
-    (value) {
-      print('Received: $value');
-    },
-    onError: (error) {
-      print('Error: $error');
-    },
-    onDone: () {
-      print('Stream is done');
-    },
-    cancelOnError: false, // Whether to cancel the subscription on the first error
-  );
-}
-
-// Awaiting Stream Data
-
-await for: Allows you to handle asynchronous events in a more readable manner
-
-void main() {
-  processStream();
-}
-
-Future<void> processStream() async {
-  var stream = Stream.fromIterable([1, 2, 3, 4, 5]);
-  
-  await for (var value in stream) {
-    print('Processed: $value');
   }
-}
 
-// Creating Custom Streams
+  take(n): Takes the first n values from the stream.
+  skip(n): Skips the first n values from the stream.
+  where(condition): Takes values that meet the condition.
 
-A StreamController allows you to create and control a stream manually.
+  void main() {
+    var stream = Stream.periodic(Duration(seconds: 1), (count) => count).take(10);
+    
+    stream
+      .where((value) => value % 2 == 0)
+      .listen((value) {
+        print(value);
+      });
+  }
 
-import 'dart:async';
+  // Listening to a Stream
 
-void main() {
-  var controller = StreamController<int>();
-  
-  // Add data to the stream
-  controller.sink.add(1);
-  controller.sink.add(2);
-  controller.sink.add(3);
-  
-  // Close the stream
-  controller.sink.close();
-  
-  // Listen to the stream
-  controller.stream.listen(
-    (value) {
-      print('StreamController: $value');
-    },
-    onDone: () {
-      print('StreamController is done');
-    },
-  );
-}
+  listen(): Adds a listener to the stream and starts receiving events
 
-// Broadcast Streams
+  void main() {
+    var stream = Stream.fromIterable([1, 2, 3, 4, 5]);
+    
+    stream.listen(
+      (value) {
+        print('Received: $value');
+      },
+      onError: (error) {
+        print('Error: $error');
+      },
+      onDone: () {
+        print('Stream is done');
+      },
+      cancelOnError: false, // Whether to cancel the subscription on the first error
+    );
+  }
 
-void main() {
-  var stream = Stream.periodic(Duration(seconds: 1), (count) => count).take(5).asBroadcastStream();
-  
-  stream.listen((value) {
-    print('Listener 1: $value');
-  });
-  
-  stream.listen((value) {
-    print('Listener 2: $value');
-  });
-}
+  // Awaiting Stream Data
+
+  await for: Allows you to handle asynchronous events in a more readable manner
+
+  void main() {
+    processStream();
+  }
+
+  Future<void> processStream() async {
+    var stream = Stream.fromIterable([1, 2, 3, 4, 5]);
+    
+    await for (var value in stream) {
+      print('Processed: $value');
+    }
+  }
+
+  // Creating Custom Streams
+
+  A StreamController allows you to create and control a stream manually.
+
+  import 'dart:async';
+
+  void main() {
+    var controller = StreamController<int>();
+    
+    // Add data to the stream
+    controller.sink.add(1);
+    controller.sink.add(2);
+    controller.sink.add(3);
+    
+    // Close the stream
+    controller.sink.close();
+    
+    // Listen to the stream
+    controller.stream.listen(
+      (value) {
+        print('StreamController: $value');
+      },
+      onDone: () {
+        print('StreamController is done');
+      },
+    );
+  }
+
+  // Broadcast Streams
+
+  void main() {
+    var stream = Stream.periodic(Duration(seconds: 1), (count) => count).take(5).asBroadcastStream();
+    
+    stream.listen((value) {
+      print('Listener 1: $value');
+    });
+    
+    stream.listen((value) {
+      print('Listener 2: $value');
+    });
+  }
 
 -----------------------------------------------------
 ///////////////////
 /// Exception 
 
-void main() {
-  try {
-    int result = 10 ~/ 0;
-    print(result);
-  } catch (e) {
-    print('Error: $e');
-  } finally {
-    print('This always executes');
+  void main() {
+    try {
+      int result = 10 ~/ 0;
+      print(result);
+    } catch (e) {
+      print('Error: $e');
+    } finally {
+      print('This always executes');
+    }
   }
-}
 
-try {} on FromatException catch(e) {} 
-catch(e) {}
-finally {}
+  try {} on FromatException catch(e) {} 
+  catch(e) {}
+  finally {}
 
------------------------------------------------------
+  -----------------------------------------------------
 
-// Packages and Libraries
+  // Packages and Libraries
 
-Using a Package
-Add dependency in pubspec.yaml file
-Import the package in your Dart code
+  Using a Package
+  Add dependency in pubspec.yaml file
+  Import the package in your Dart code
 
-dependencies:
-  http: ^0.14.0
+  dependencies:
+    http: ^0.14.0
 
-import 'package:http/http.dart' as http;
+  import 'package:http/http.dart' as http;
 
-void main() async {
-  var url = Uri.parse('https://jsonplaceholder.typicode.com/posts/1');
-  var response = await http.get(url);
-  print('Response status: ${response.statusCode}');
-  print('Response body: ${response.body}');
-}
+  void main() async {
+    var url = Uri.parse('https://jsonplaceholder.typicode.com/posts/1');
+    var response = await http.get(url);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+  }
 
 ---------------------------------------------------
 
 /////////////////////
 // List 
 
-void main() {
-  // dynamic list
-  List list2 = [10, 'leo'];
+  void main() {
+    // dynamic list
+    List list2 = [10, 'leo'];
 
-  // normal list
-  List<int> list = [10,20,30];
-  int x = list[0];
-}
+    // normal list
+    List<int> list = [10,20,30];
+    int x = list[0];
+  }
 
-= generics 
+  = generics 
 
-class Student<DataType> {
-  final DataType name;
-}
+  class Student<DataType> {
+    final DataType name;
+  }
 
-void main() {
-  Student<String> leo = Student();
-}
+  void main() {
+    Student<String> leo = Student();
+  }
 
-List names = ['a' , 'bb' , 'c'];
-for(final name in names) {
-  print(name);
-}
+  List names = ['a' , 'bb' , 'c'];
+  for(final name in names) {
+    print(name);
+  }
 
-// Js like stuff  .where
+  // Js like stuff  .where
 
-final filtered = names.where((name) => name.length == 2);
-filtered.toList(); // this is necessary to convert iterable to list 
+  final filtered = names.where((name) => name.length == 2);
+  filtered.toList(); // this is necessary to convert iterable to list 
 
 ----------------------------------------------------
 ----------------------------------------------------
 //////////////////////
 // MAP
 
-Map<String, int>
-// or 
-Map marks = {
-  'A': 1,
-  'B': 2
-};
+  Map<String, int>
+  // or 
+  Map marks = {
+    'A': 1,
+    'B': 2
+  };
 
-marks.keys.toList()
-marks.values.toList()
+  marks.keys.toList()
+  marks.values.toList()
 
-marks.forEach((key , val) {
+  marks.forEach((key , val) {
 
-    })
+      })
 
-marks.map() // same as java
+  marks.map() // same as java
 
-print(marks['A']);
+  print(marks['A']);
 
 ----------------------------------------------------
 
@@ -772,72 +772,72 @@ print(marks['A']);
 // ENUM
 - declare it globally 
 
-enum AgeType {
-  one,two,three
-}
+  enum AgeType {
+    one,two,three
+  }
 
-class Some {
-  final AgeType type;
-  Some(this.type);
-}
+  class Some {
+    final AgeType type;
+    Some(this.type);
+  }
 
-void main() {
-  final emp1 = Some(AgeType.one);
-}
+  void main() {
+    final emp1 = Some(AgeType.one);
+  }
 ----------------------------------------------------
 ----------------------------------------------------
 ////////////////
 /// Records. 
 
-void main() {
-  final records = (4.5 , 'leo');
-  print(records.$1);
-}
+  void main() {
+    final records = (4.5 , 'leo');
+    print(records.$1);
+  }
 
-final list = [1,2,3,4,5,6];
-final [a,_ ,c, ...d] = list;
-print('$a , $b , $c');
-print(d);   // this is a list. 
+  final list = [1,2,3,4,5,6];
+  final [a,_ ,c, ...d] = list;
+  print('$a , $b , $c');
+  print(d);   // this is a list. 
 
 //////////// 
 // Destructuring json 
 
-void main() {
-  final json = {
-    'name': 'leo',
-    'age': 20
+  void main() {
+    final json = {
+      'name': 'leo',
+      'age': 20
+    }
+    final {'name':name , 'age': age} = json;
+    print(json['name']);
+    print(name);
+    print(age);
   }
-  final {'name':name , 'age': age} = json;
-  print(json['name']);
-  print(name);
-  print(age);
-}
 
-// Destructuring class variables. 
+  // Destructuring class variables. 
 
-void main() {
-  final human = Human('Nice Name', 2);
-  final Human(:name, :age) = human;
-  final Human(name:somename, age:ageAge) = human;
-  print(name);
-}
-
-class Human {
-  final String name;
-  final int age;
-  Human(this.name, this.age);
-}
-
-//////
-
-void main() {
-  int n = 1;
-  String text = switch(n) {
-    1 => "hello",
-    2 => "two",
-    _ => "None"
+  void main() {
+    final human = Human('Nice Name', 2);
+    final Human(:name, :age) = human;
+    final Human(name:somename, age:ageAge) = human;
+    print(name);
   }
-}
+
+  class Human {
+    final String name;
+    final int age;
+    Human(this.name, this.age);
+  }
+
+  //////
+
+  void main() {
+    int n = 1;
+    String text = switch(n) {
+      1 => "hello",
+      2 => "two",
+      _ => "None"
+    }
+  }
 
 ----------------------------------------------------
 ----------------------------------------------------
@@ -845,15 +845,15 @@ void main() {
 ////////////////
 // Extensions 
  - our own functions on datatypes. 
- 
-void main() {
-  String name = "leo devenasan";
-  name = name.capFirstChar();
-  print(name);
-}
-
-extension CapFirstChar on String {
-  String capFirstChar() {
-    return this[0].toUpperCase() + this.substring(1);
+  
+  void main() {
+    String name = "leo devenasan";
+    name = name.capFirstChar();
+    print(name);
   }
-}
+
+  extension CapFirstChar on String {
+    String capFirstChar() {
+      return this[0].toUpperCase() + this.substring(1);
+    }
+  }

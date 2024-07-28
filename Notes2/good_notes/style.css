@@ -1,10 +1,5 @@
-
 * {
-	box-sizing: border-box;
-}
-
-body {
-    /*font-family: "Courier New", Courier, monospace;*/
+    box-sizing: border-box;
 }
 
 pre {
@@ -28,23 +23,30 @@ pre {
 }
 
 .navbar {
-	width: 100%;
+    width: 100%;
 }
 
 .navbar > ul {
-	width: 100%;
-	display: flex;
-	justify-content: flex-start;
-	border: 2px solid black;
-	padding: 5px;
-	margin: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    border: 2px solid black;
+    padding: 5px;
+    margin: 0px;
 }
 
-
 .navbar > ul > li {
-	list-style: none;
-	margin-right: 25px;
-	margin-left: 25px;
-	background-color: yellow;
-	padding: 5px;
+    list-style: none;
+    margin-right: 25px;
+    margin-left: 25px;
+    background-color: yellow;
+    padding: 5px;
+}
+
+.content {
+    display: none;
+    margin-top: 5px;
+}
+.heading {
+    cursor: pointer;
 }
