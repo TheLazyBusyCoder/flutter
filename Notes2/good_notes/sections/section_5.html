@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Section 5</title>
+        <link rel="stylesheet" href="../prism/prism.css" />
+        <script src="../prism/prism.js"></script>
+        <link rel="stylesheet" href="../style.css" />
+    </head>
+    <body>
+        <div class="block language-dart">
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Create Flutter App & Import Packages</div>
+                <div class="content">
+                    <p>Create a new project</p>
+                    <pre><code>flutter create taskly</code></pre>
+                    <p>CMD</p>
+                    <pre><code>flutter pub add hive
+flutter pub add hive_flutter
+// To download added packages.
+flutter pub get</code></pre>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Creating Stateful Widget</div>
+                <div class="content">
+                    <p>home_page.dart</p>
+                    <pre><code>import 'package:flutter/material.dart';
+
+class HomePage extends StatefulWidget {
+  HomePage();
+  @override
+  State&lt;HomePage&gt; createState() {
+    return _HomePageState();
+  }
+}
+
+class _HomePageState extends State&lt;HomePage&gt; {
+  _HomePageState();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}
+</code></pre>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Creating App Bar</div>
+                <div class="content">
+                    <p>home_page.dart</p>
+                    <pre><code>class _HomePageState extends State&lt;HomePage&gt; {
+  late double _deviceHeight, _deviceWidth;
+  _HomePageState();
+  @override
+  Widget build(BuildContext context) {
+    _deviceHeight = MediaQuery.of(context).size.height;
+    _deviceWidth = MediaQuery.of(context).size.width;
+
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: _deviceHeight * 0.15,
+        title: const Text(
+          'Taskly',
+          style: TextStyle(
+            fontSize: 25,
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Working With ListView and ListTile Widget</div>
+                <div class="content">
+                    <pre><code>Widget _tasksList() {
+    return ListView(
+      children: [
+        ListTile(
+          title: const Text(
+            'Do Something',
+            style: TextStyle(
+              decoration: TextDecoration.lineThrough,
+            ),
+          ),
+          subtitle: Text(
+            DateTime.now().toString(),
+          ),
+          trailing: const Icon(
+            Icons.check_box_outlined,
+            color: Colors.red,
+          ),
+        ),
+      ],
+    );
+  }</code></pre>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Creating Floating Action Button Widget</div>
+                <div class="content">
+                    <pre><code>return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        toolbarHeight: _deviceHeight * 0.15,
+        title: const Text(
+          'Taskly',
+          style: TextStyle(
+            fontSize: 30,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: _tasksList(),
+      floatingActionButton: _addTaskButton(),
+    );
+  }
+
+  Widget _addTaskButton() {
+    return FloatingActionButton(
+      onPressed: () {
+        print("button");
+      },
+      child: const Icon(
+        Icons.add,
+      ),
+    );
+  }</code>
+                  </pre>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Futures In Flutter & Initializing Hive</div>
+                <div class="content">
+                    <p>Create a new folder: /hive_boxes</p>
+                    <pre>
+<code>
+import 'package:hive_flutter/hive_flutter.dart';
+
+void main() async {
+  // dont push on another thread.
+  await Hive.initFlutter("hive_boxes");
+  runApp(const MyApp());
+}
+</code>                    
+                  </pre>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Creating Task Model Class</div>
+                <div class="content">
+                    <p>lib>models>task.dart</p>
+                    <pre><code>class Task {
+  String content;
+  DateTime timeStamp;
+  bool done;
+
+  Task({
+    required this.content,
+    required this.timeStamp,
+    required this.done,
+  });
+
+  // uncleared topic
+  factory Task.fromMap(Map task) {
+    return Task(
+      content: task["content"],
+      timeStamp: task["timeStamp"],
+      done: task["done"],
+    );
+  }
+
+  Map toMap() {
+    return {
+      "content": content,
+      "timeStamp": timeStamp,
+      "done": done,
+    };
+  }
+}
+</code></pre>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">TextField and SetState In Flutter</div>
+                <div class="content">
+                    <pre><code>
+class _HomePageState extends State&lt;HomePage&gt; {
+  late double _deviceHeight, _deviceWidth;
+
+  // changable variable. 
+  String? _newTaskContent;
+                        
+  Widget _addTaskButton() {
+      return FloatingActionButton(
+        onPressed: _displayTaskPopup,
+        child: const Icon(
+          Icons.add,
+        ),
+      );
+    }
+
+    void _displayTaskPopup() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Add New Task!"),
+            content: TextField(
+              onSubmitted: (_value) {},
+              onChanged: (_value) {
+                // to update the variable.
+                setState(() {
+                  _newTaskContent = _value;
+                });
+              },
+            ),
+          );
+        },
+      );
+    }
+  }
+</code></pre>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Understanding FutureBuilder Widget</div>
+                <div class="content">
+                    <pre><code>
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+  @override
+  State&lt;HomePage&gt; createState() {
+    return _HomePageState();
+  }
+}
+
+class _HomePageState extends State&lt;HomePage&gt; {
+  late double _deviceHeight, _deviceWidth;
+
+  String? _newTaskContent;
+  Box? _box;
+
+  _HomePageState();
+
+  @override
+  Widget build(BuildContext context) {
+    _deviceHeight = MediaQuery.of(context).size.height;
+    _deviceWidth = MediaQuery.of(context).size.width;
+    print("Input value: $_newTaskContent");
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        toolbarHeight: _deviceHeight * 0.15,
+        title: const Text(
+          'Taskly',
+          style: TextStyle(
+            fontSize: 30,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: _taskView(),
+      floatingActionButton: _addTaskButton(),
+    );
+  }
+
+  // future builder
+  Widget _taskView() {
+    return FutureBuilder(
+      future: Hive.openBox('tasks'),
+      builder: (BuildContext context, AsyncSnapshot snapShot) {
+        if (snapShot.connectionState == ConnectionState.done) {
+          _box = snapShot.data;
+          return _tasksList();
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _addTaskButton() {
+    return FloatingActionButton(
+      onPressed: _displayTaskPopup,
+      child: const Icon(
+        Icons.add,
+      ),
+    );
+  }
+
+  void _displayTaskPopup() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Add New Task!"),
+          content: TextField(
+            onSubmitted: (value) {},
+            onChanged: (value) {
+              setState(() {
+                _newTaskContent = value;
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _tasksList() {
+    return ListView(
+      children: [
+        ListTile(
+          title: const Text(
+            'Do Something',
+            style: TextStyle(
+              decoration: TextDecoration.lineThrough,
+            ),
+          ),
+          subtitle: Text(
+            DateTime.now().toString(),
+          ),
+          trailing: const Icon(
+            Icons.check_box_outlined,
+            color: Colors.red,
+          ),
+        ),
+      ],
+    );
+  }
+}
+                  </code></pre>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Displaying Tasks On ListView</div>
+                <div class="content">
+                    <pre><code>
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:taskly/models/task.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+  @override
+  State&lt;HomePage&gt; createState() {
+    return _HomePageState();
+  }
+}
+
+class _HomePageState extends State&lt;HomePage&gt; {
+  late double _deviceHeight, _deviceWidth;
+
+  String? _newTaskContent;
+  Box? _box;
+
+  _HomePageState();
+
+  @override
+  Widget build(BuildContext context) {
+    _deviceHeight = MediaQuery.of(context).size.height;
+    _deviceWidth = MediaQuery.of(context).size.width;
+    print("Input value: $_newTaskContent");
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        toolbarHeight: _deviceHeight * 0.15,
+        title: const Text(
+          'Taskly',
+          style: TextStyle(
+            fontSize: 30,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: _taskView(),
+      floatingActionButton: _addTaskButton(),
+    );
+  }
+
+  Widget _taskList() {
+    // this is for adding data in hive
+    /*
+    Task _newTask = Task(
+      content: 'Leo',
+      timeStamp: DateTime.now(),
+      done: false,
+    );
+    _box?.add(_newTask.toMap());
+    */
+
+    // this is to read the data;
+    List tasks = _box!.values.toList();
+
+    return ListView.builder(
+      itemCount: tasks.length,
+      itemBuilder: (BuildContext context, int index) {
+        Task task = Task.fromMap(tasks[index]);
+        return ListTile(
+          title: Text(
+            task.content,
+            style: TextStyle(
+              decoration: !task.done ? null : TextDecoration.lineThrough,
+            ),
+          ),
+          subtitle: Text(
+            task.timeStamp.toString(),
+          ),
+          trailing: Icon(
+            !task.done
+                ? Icons.check_box_outline_blank_outlined
+                : Icons.check_box_outlined,
+            color: Colors.red,
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _taskView() {
+    return FutureBuilder(
+      future: Hive.openBox('tasks'),
+      builder: (BuildContext context, AsyncSnapshot snapShot) {
+        if (snapShot.connectionState == ConnectionState.done) {
+          _box = snapShot.data;
+          return _taskList();
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _addTaskButton() {
+    return FloatingActionButton(
+      onPressed: _displayTaskPopup,
+      child: const Icon(
+        Icons.add,
+      ),
+    );
+  }
+
+  void _displayTaskPopup() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Add New Task!"),
+          content: TextField(
+            onSubmitted: (value) {},
+            onChanged: (value) {
+              setState(() {
+                _newTaskContent = value;
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+                  </code></pre>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Adding New Tasks</div>
+                <div class="content">
+                    <pre><code>
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:taskly/models/task.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+  @override
+  State&lt;HomePage&gt; createState() {
+    return _HomePageState();
+  }
+}
+
+class _HomePageState extends State&lt;HomePage&gt; {
+  late double _deviceHeight, _deviceWidth;
+
+  String? _newTaskContent;
+  Box? _box;
+
+  _HomePageState();
+
+  @override
+  Widget build(BuildContext context) {
+    _deviceHeight = MediaQuery.of(context).size.height;
+    _deviceWidth = MediaQuery.of(context).size.width;
+    print("Input value: $_newTaskContent");
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        toolbarHeight: _deviceHeight * 0.15,
+        title: const Text(
+          'Taskly',
+          style: TextStyle(
+            fontSize: 30,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: _taskView(),
+      floatingActionButton: _addTaskButton(),
+    );
+  }
+
+  Widget _taskList() {
+    // this is for adding data in hive
+    /*
+    Task _newTask = Task(
+      content: 'Leo',
+      timeStamp: DateTime.now(),
+      done: false,
+    );
+    _box?.add(_newTask.toMap());
+    */
+
+    // this is to read the data;
+    List tasks = _box!.values.toList();
+
+    return ListView.builder(
+      itemCount: tasks.length,
+      itemBuilder: (BuildContext context, int index) {
+        Task task = Task.fromMap(tasks[index]);
+        return ListTile(
+          title: Text(
+            task.content,
+            style: TextStyle(
+              decoration: !task.done ? null : TextDecoration.lineThrough,
+            ),
+          ),
+          subtitle: Text(
+            task.timeStamp.toString(),
+          ),
+          trailing: Icon(
+            !task.done
+                ? Icons.check_box_outline_blank_outlined
+                : Icons.check_box_outlined,
+            color: Colors.red,
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _taskView() {
+    return FutureBuilder(
+      future: Hive.openBox('tasks'),
+      builder: (BuildContext context, AsyncSnapshot snapShot) {
+        if (snapShot.connectionState == ConnectionState.done) {
+          _box = snapShot.data;
+          return _taskList();
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _addTaskButton() {
+    return FloatingActionButton(
+      onPressed: _displayTaskPopup,
+      child: const Icon(
+        Icons.add,
+      ),
+    );
+  }
+
+  void _displayTaskPopup() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Add New Task!"),
+          content: TextField(
+            // here is the working
+            onSubmitted: (_) {
+              if (_newTaskContent != null) {
+                _box!.add(
+                  Task(
+                    content: _newTaskContent!,
+                    timeStamp: DateTime.now(),
+                    done: false,
+                  ).toMap(),
+                );
+
+                setState(() {
+                  _newTaskContent = null;
+                });
+
+                // escape on model box stuff
+                Navigator.pop(context);
+              }
+            },
+            onChanged: (value) {
+              setState(() {
+                _newTaskContent = value;
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
+}</code></pre>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Updating and Deleting Tasks</div>
+                <div class="content">
+                    <pre><code>
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:taskly/models/task.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+  @override
+  State&lt;HomePage&gt; createState() {
+    return _HomePageState();
+  }
+}
+
+class _HomePageState extends State&lt;HomePage&gt; {
+  late double _deviceHeight, _deviceWidth;
+
+  String? _newTaskContent;
+  Box? _box;
+
+  _HomePageState();
+
+  @override
+  Widget build(BuildContext context) {
+    _deviceHeight = MediaQuery.of(context).size.height;
+    _deviceWidth = MediaQuery.of(context).size.width;
+    print("Input value: $_newTaskContent");
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        toolbarHeight: _deviceHeight * 0.15,
+        title: const Text(
+          'Taskly',
+          style: TextStyle(
+            fontSize: 30,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: _taskView(),
+      floatingActionButton: _addTaskButton(),
+    );
+  }
+
+  Widget _taskList() {
+    // this is for adding data in hive
+    /*
+    Task _newTask = Task(
+      content: 'Leo',
+      timeStamp: DateTime.now(),
+      done: false,
+    );
+    _box?.add(_newTask.toMap());
+    */
+
+    // this is to read the data;
+    List tasks = _box!.values.toList();
+
+    return ListView.builder(
+      itemCount: tasks.length,
+      itemBuilder: (BuildContext context, int index) {
+        Task task = Task.fromMap(tasks[index]);
+        return ListTile(
+          title: Text(
+            task.content,
+            style: TextStyle(
+              decoration: !task.done ? null : TextDecoration.lineThrough,
+            ),
+          ),
+          subtitle: Text(
+            task.timeStamp.toString(),
+          ),
+          trailing: Icon(
+            !task.done
+                ? Icons.check_box_outline_blank_outlined
+                : Icons.check_box_outlined,
+            color: Colors.red,
+          ),
+          onTap: () {
+            task.done = !task.done;
+            _box!.put(
+              index,
+              task.toMap(),
+            );
+            setState(() {});
+          },
+          onLongPress: () {
+            _box!.delete(index);
+            setState(() {});
+          },
+        );
+      },
+    );
+  }
+
+  Widget _taskView() {
+    return FutureBuilder(
+      future: Hive.openBox('tasks'),
+      builder: (BuildContext context, AsyncSnapshot snapShot) {
+        if (snapShot.hasData) {
+          _box = snapShot.data;
+          return _taskList();
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _addTaskButton() {
+    return FloatingActionButton(
+      onPressed: _displayTaskPopup,
+      child: const Icon(
+        Icons.add,
+      ),
+    );
+  }
+
+  void _displayTaskPopup() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Add New Task!"),
+          content: TextField(
+            onSubmitted: (_) {
+              if (_newTaskContent != null) {
+                _box!.add(
+                  Task(
+                    content: _newTaskContent!,
+                    timeStamp: DateTime.now(),
+                    done: false,
+                  ).toMap(),
+                );
+
+                setState(() {
+                  _newTaskContent = null;
+                });
+
+                // escape on model box stuff
+                Navigator.pop(context);
+              }
+            },
+            onChanged: (value) {
+              setState(() {
+                _newTaskContent = value;
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
+}</code></pre>
+                </div>
+            </div>
+            <hr />
+        </div>
+        <script src="../script.js"></script>
+    </body>
+</html>

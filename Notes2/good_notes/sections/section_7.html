@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Section 7</title>
+        <link rel="stylesheet" href="../prism/prism.css" />
+        <script src="../prism/prism.js"></script>
+        <link rel="stylesheet" href="../style.css" />
+    </head>
+    <body>
+        <div class="block language-dart">
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Creating project and adding dependency</div>
+                <div class="content">
+                    <pre><code>flutter create coincap
+flutter pub add dio
+flutter pub add get_it</code></pre>
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">CoinGecko API</div>
+                <div class="content">
+                    <a href="https://docs.coingecko.com/v3.0.1/reference/setting-up-your-api-key"
+                        >https://docs.coingecko.com/v3.0.1/reference/setting-up-your-api-key</a
+                    >
+                </div>
+            </div>
+            <hr />
+            <hr />
+            <div class="dropdown">
+                <div class="heading">Loading and Reading Files In Flutter</div>
+                <div class="content">
+                    <p>create new file in /assets/config/main.json</p>
+                    <pre><code>{
+    "COING_API_BASE_KEY": "https://api.coingecko.com/api/v3/"
+}</code></pre>
+                    <p>in pubspec.yaml</p>
+                    <pre><code>    assets:
+        - assets/config</code></pre>
+                    <p>new file in /lib/models/app_config.dart</p>
+                    <pre><code>class AppConfig {
+  String COIN_API_BASE_URL;
+
+  AppConfig({required this.COIN_API_BASE_URL});
+}</code></pre>
+                    <p>in main.dart</p>
+                    <pre><code>import 'dart:convert';
+import 'package:coincap/models/app_config.dart';
+import 'package:coincap/pages/home_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await loadConfig();
+  runApp(const MyApp());
+}
+
+Future&lt;void&gt; loadConfig() async {
+  String configContent = await rootBundle.loadString('assets/config/main.json');
+  Map configData = jsonDecode(configContent);
+  GetIt.instance.registerSingleton&lt;AppConfig&gt;(
+    AppConfig(
+      COIN_API_BASE_URL: configData['COING_API_BASE_KEY'],
+    ),
+  );
+}</code></pre>
+                </div>
+            </div>
+            <hr />
+        </div>
+        <script src="../script.js"></script>
+    </body>
+</html>
