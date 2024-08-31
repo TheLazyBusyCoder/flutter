@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Section 8</title>
+    <link rel="stylesheet" href="../prism/prism.css" />
+    <script src="../prism/prism.js"></script>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <div class="block language-dart">
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Creating flutter project</div>
+        <div class="content">
+          <pre><code>flutter create friviaa
+flutter pub add get_it
+flutter pub add dio 
+flutter pub add provider</code></pre>
+        </div>
+      </div>
+      <hr />
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Importing Custom Fonts In Flutter</div>
+        <div class="content">
+          <p>paste the font file in:</p>
+          <pre><code>/assets/fonts/fontfile.ttf</code></pre>
+          <p>add this in pubspec.yaml</p>
+          <pre><code>fonts:
+    - family: FiraCode
+        fonts:
+            - asset: assets\fonts\FiraCode-Regular.ttf</code></pre>
+          <p>main.dart</p>
+          <pre><code>class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Friviaa',
+      theme: ThemeData(
+        fontFamily: 'FiraCode',
+        scaffoldBackgroundColor: const Color.fromRGBO(31, 31, 31, 1),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}</code></pre>
+        </div>
+      </div>
+      <hr />
+
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Open Trivia DB API Overview</div>
+        <div class="content">
+          <p>Website: <a href="opentdb.com">opentdb.com</a></p>
+        </div>
+      </div>
+      <hr />
+
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Provider State Management Framework Overview</div>
+        <div class="content">
+          <p>
+            Provider is similer to ReactJS state management like wraping the parent in the Provider then childre will
+            have access to the state.
+          </p>
+        </div>
+      </div>
+      <hr />
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Building UI Game Page</div>
+        <div class="content">
+          <p>new file in lib>pages>game_page.dart</p>
+          <pre><code>import 'package:flutter/material.dart';
+
+class GamePage extends StatelessWidget {
+  double? height, width;
+
+  @override
+  Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    return buildUI();
+  }
+
+  Widget buildUI() {
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: height! * 0.05,
+          ),
+          child: gameUI(),
+        ),
+      ),
+    );
+  }
+
+  Widget gameUI() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        questionText(),
+      ],
+    );
+  }
+
+  Widget questionText() {
+    return const Text(
+      'Test Question 1, Nothing Interesting',
+      style: TextStyle(
+        fontSize: 25,
+        color: Colors.white,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+}
+</code></pre>
+          <p>main.dart</p>
+          <pre><code>import 'package:flutter/material.dart';
+import 'package:friviaa/pages/game_page.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Friviaa',
+      theme: ThemeData(
+        fontFamily: 'FiraCode',
+        scaffoldBackgroundColor: const Color.fromRGBO(31, 31, 31, 1),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: GamePage(),
+    );
+  }
+}</code></pre>
+        </div>
+      </div>
+      <hr />
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Working With Material Buttons</div>
+        <div class="content">
+          <p>game_page.dart</p>
+          <pre><code>Widget gameUI() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        questionText(),
+        Column(
+          children: [
+            trueButton(),
+            SizedBox(
+              height: height! * 0.01,
+            ),
+            falseButton(),
+          ],
+        ),
+      ],
+    );
+  }
+  
+Widget trueButton() {
+    return MaterialButton(
+      onPressed: () {},
+      color: Colors.green,
+      minWidth: width! * 0.80,
+      height: height! * 0.10,
+      child: const Text(
+        'True',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 25,
+        ),
+      ),
+    );
+  }
+  
+Widget falseButton() {
+    return MaterialButton(
+      onPressed: () {},
+      color: Colors.red,
+      minWidth: width! * 0.80,
+      height: height! * 0.10,
+      child: const Text(
+        'False',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 25,
+        ),
+      ),
+    );
+  }</code></pre>
+        </div>
+      </div>
+      <hr />
+
+      <hr />
+      <div class="dropdown">
+        <div class="heading">ChangeNotifier and Provider Widgets</div>
+        <div class="content">
+          <p>lib/pages/game_page.dart</p>
+          <pre><code>import 'package:flutter/material.dart';
+import 'package:friviaa/providers/game_page_provider.dart';
+import 'package:provider/provider.dart';
+
+class GamePage extends StatelessWidget {
+  double? height, width;
+
+  GamePageProvider? pageProvider;
+
+  @override
+  Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    return ChangeNotifierProvider(
+      create: (contest) => GamePageProvider(
+        context: context,
+      ),
+      child: buildUI(),
+    );
+  }
+
+  Widget buildUI() {
+    return Builder(builder: (context) {
+      pageProvider = context.watch&lt;GamePageProvider&gt;();
+      return Scaffold(
+        body: SafeArea(
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: height! * 0.05,
+            ),
+            child: gameUI(),
+          ),
+        ),
+      );
+    });
+  }
+
+  Widget gameUI() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        questionText(),
+        Column(
+          children: [
+            trueButton(),
+            SizedBox(
+              height: height! * 0.01,
+            ),
+            falseButton(),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget questionText() {
+    return const Text(
+      'Test Question 1, Nothing Interesting',
+      style: TextStyle(
+        fontSize: 25,
+        color: Colors.white,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+
+  Widget trueButton() {
+    return MaterialButton(
+      onPressed: () {},
+      color: Colors.green,
+      minWidth: width! * 0.80,
+      height: height! * 0.10,
+      child: const Text(
+        'True',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 25,
+        ),
+      ),
+    );
+  }
+
+  Widget falseButton() {
+    return MaterialButton(
+      onPressed: () {},
+      color: Colors.red,
+      minWidth: width! * 0.80,
+      height: height! * 0.10,
+      child: const Text(
+        'False',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 25,
+        ),
+      ),
+    );
+  }
+}
+</code></pre>
+          <p>lib/providers/game_page_provider.dart</p>
+          <pre><code>import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+
+class GamePageProvider extends ChangeNotifier {
+  final Dio dio = Dio();
+
+  BuildContext context;
+  GamePageProvider({required this.context}) {
+    dio.options.baseUrl = 'https://opentdb.com/api.php';
+  }
+}</code></pre>
+        </div>
+      </div>
+      <hr />
+
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Getting Trivia Questions From API</div>
+        <div class="content">
+          <p>/lib/providers/game_page_provider.dart</p>
+          <pre><code>import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+
+class GamePageProvider extends ChangeNotifier {
+  final Dio dio = Dio();
+  final int maxQuestions = 10;
+  List? questions;
+
+  BuildContext context;
+  GamePageProvider({required this.context}) {
+    dio.options.baseUrl = 'https://opentdb.com/api.php';
+    getQuestionFromAPI();
+  }
+
+  Future&lt;void&gt; getQuestionFromAPI() async {
+    var response = await dio.get(
+      '',
+      queryParameters: {
+        'amount': maxQuestions,
+        'type': 'boolean',
+        'difficulty': 'easy',
+      },
+    );
+
+    var data = jsonDecode(response.toString());
+
+    questions = data['results'];
+  }
+}
+</code></pre>
+        </div>
+      </div>
+      <hr />
+
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Listening To Provider Changes</div>
+        <div class="content">
+          <p>game_page_provider.dart</p>
+          <pre><code>import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+
+class GamePageProvider extends ChangeNotifier {
+  final Dio dio = Dio();
+  final int maxQuestions = 10;
+  List? questions;
+  BuildContext context;
+  int currentQuestionCount = 0;
+
+  GamePageProvider({required this.context}) {
+    dio.options.baseUrl = 'https://opentdb.com/api.php';
+    getQuestionFromAPI();
+  }
+
+  Future&lt;void&gt; getQuestionFromAPI() async {
+    var response = await dio.get(
+      '',
+      queryParameters: {
+        'amount': maxQuestions,
+        'type': 'boolean',
+        'difficulty': 'easy',
+      },
+    );
+    var data = jsonDecode(response.toString());
+    questions = data['results'];
+    notifyListeners(); // so that UI knows that it has to rerender
+  }
+
+  String getCurrentQuestionText() {
+    return questions![currentQuestionCount]['question'];
+  }
+}
+</code></pre>
+          <p>game_page.dart</p>
+          <pre><code>import 'package:flutter/material.dart';
+import 'package:friviaa/providers/game_page_provider.dart';
+import 'package:provider/provider.dart';
+
+class GamePage extends StatelessWidget {
+  double? height, width;
+
+  GamePageProvider? pageProvider;
+
+  GamePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    return ChangeNotifierProvider(
+      create: (contest) => GamePageProvider(
+        context: context,
+      ),
+      child: buildUI(),
+    );
+  }
+
+  Widget buildUI() {
+    return Builder(builder: (context) {
+      pageProvider = context.watch&lt;GamePageProvider&gt;();
+      if (pageProvider!.questions != null) {
+        return Scaffold(
+          body: SafeArea(
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: height! * 0.05,
+              ),
+              child: gameUI(),
+            ),
+          ),
+        );
+      } else {
+        return const Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        );
+      }
+    });
+  }
+
+  Widget gameUI() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        questionText(),
+        Column(
+          children: [
+            trueButton(),
+            SizedBox(
+              height: height! * 0.01,
+            ),
+            falseButton(),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget questionText() {
+    return Text(
+      pageProvider!.getCurrentQuestionText(),
+      style: const TextStyle(
+        fontSize: 25,
+        color: Colors.white,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+
+  Widget trueButton() {
+    return MaterialButton(
+      onPressed: () {},
+      color: Colors.green,
+      minWidth: width! * 0.80,
+      height: height! * 0.10,
+      child: const Text(
+        'True',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 25,
+        ),
+      ),
+    );
+  }
+
+  Widget falseButton() {
+    return MaterialButton(
+      onPressed: () {},
+      color: Colors.red,
+      minWidth: width! * 0.80,
+      height: height! * 0.10,
+      child: const Text(
+        'False',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 25,
+        ),
+      ),
+    );
+  }
+}</code></pre>
+        </div>
+      </div>
+      <hr />
+
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Answering Trivia Questions</div>
+        <div class="content">
+          <p>game_page_provider.dart</p>
+          <pre><code>void answerQuestion(String answer) async {
+    bool isCorrect = questions![currentQuestionCount]['correct'] == answer;
+    currentQuestionCount++;
+
+    notifyListeners();
+  }</code></pre>
+          <p>game_page.dart</p>
+          <pre><code>Widget trueButton() {
+    return MaterialButton(
+      onPressed: () {
+        pageProvider!.answerQuestion('True');
+      },
+      color: Colors.green,
+      minWidth: width! * 0.80,
+      height: height! * 0.10,
+      child: const Text(
+        'True',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 25,
+        ),
+      ),
+    );
+  }</code></pre>
+        </div>
+      </div>
+      <hr />
+
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Alert Dialog Widget</div>
+        <div class="content">
+          <p>game_page_provider.dart</p>
+          <pre><code>void answerQuestion(String answer) async {
+    bool isCorrect = questions![currentQuestionCount]['correct'] == answer;
+    currentQuestionCount++;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: isCorrect ? Colors.green : Colors.red,
+          title: Icon(
+            isCorrect ? Icons.check_circle : Icons.cancel_sharp,
+            color: Colors.white,
+          ),
+        );
+      },
+    );
+
+    // to make the dialog dissaper after 1 seconds.
+    await Future.delayed(
+      const Duration(seconds: 1),
+    );
+    Navigator.pop(context); // understand where we are getting this context. 
+    notifyListeners();
+  }</code></pre>
+        </div>
+      </div>
+      <hr />
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Implementing End Game Condition</div>
+        <div class="content">
+          <p>game_page_provider.dart</p>
+          <pre><code>import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+
+class GamePageProvider extends ChangeNotifier {
+  final Dio dio = Dio();
+  final int maxQuestions = 10;
+  List? questions;
+  BuildContext context;
+  int currentQuestionCount = 0;
+
+  GamePageProvider({required this.context}) {
+    dio.options.baseUrl = 'https://opentdb.com/api.php';
+    getQuestionFromAPI();
+  }
+
+  Future&lt;void&gt; getQuestionFromAPI() async {
+    var response = await dio.get(
+      '',
+      queryParameters: {
+        'amount': maxQuestions,
+        'type': 'boolean',
+        'difficulty': 'easy',
+      },
+    );
+    var data = jsonDecode(response.toString());
+    questions = data['results'];
+    notifyListeners(); // so that UI knows that it has to rerender
+  }
+
+  String getCurrentQuestionText() {
+    return questions![currentQuestionCount]['question'];
+  }
+
+  void answerQuestion(String answer) async {
+    bool isCorrect = questions![currentQuestionCount]['correct'] == answer;
+    currentQuestionCount++;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: isCorrect ? Colors.green : Colors.red,
+          title: Icon(
+            isCorrect ? Icons.check_circle : Icons.cancel_sharp,
+            color: Colors.white,
+          ),
+        );
+      },
+    );
+
+    // to make the dialog dissaper after 1 seconds.
+    await Future.delayed(
+      const Duration(seconds: 1),
+    );
+    Navigator.pop(context);
+    if (currentQuestionCount == maxQuestions) {
+      endGame();
+    } else {
+      notifyListeners();
+    }
+  }
+
+  Future&lt;void&gt; endGame() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          backgroundColor: Colors.blue,
+          title: Text(
+            'End Game!',
+            style: TextStyle(
+              fontSize: 25,
+              color: Colors.white,
+            ),
+          ),
+          content: Text("Score: 0/0"),
+        );
+      },
+    );
+    await Future.delayed(
+      const Duration(seconds: 3),
+    );
+    Navigator.pop(context);
+    Navigator.pop(context);
+    notifyListeners();
+  }
+}
+</code></pre>
+        </div>
+      </div>
+      <hr />
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Slider Widget</div>
+        <div class="content">
+          <p>main.dart</p>
+          <pre><code>import 'package:flutter/material.dart';
+import 'package:friviaa/pages/game_page.dart';
+import 'package:friviaa/pages/entry_page.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Friviaa',
+      theme: ThemeData(
+        fontFamily: 'FiraCode',
+        scaffoldBackgroundColor: const Color.fromRGBO(31, 31, 31, 1),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: EntryPage(),
+    );
+  }
+}
+</code></pre>
+          <p>lib>pages>game_page.dart</p>
+          <pre><code>import 'package:flutter/material.dart';
+
+class EntryPage extends StatefulWidget {
+  const EntryPage({super.key});
+
+  @override
+  State&lt;EntryPage&gt; createState() {
+    return EntryPageState();
+  }
+}
+
+class EntryPageState extends State&lt;EntryPage&gt; {
+  double currentValue = 0;
+  String difful = "Easy";
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const Text(
+                "Friviaa",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 35,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              diff(difful),
+              const SizedBox(
+                height: 20,
+              ),
+              Slider(
+                label: "Difficulty",
+                value: currentValue,
+                onChanged: (e) {
+                  setState(() {
+                    currentValue = e;
+                    if (e == 0) {
+                      difful = "Easy";
+                    } else if (e > 0 && e < 1) {
+                      difful = "Medium";
+                    } else if (e == 1) {
+                      difful = "Hard";
+                    }
+                  });
+                },
+                activeColor: Colors.blue,
+                divisions: 2,
+              ),
+              const SizedBox(
+                height: 35,
+              ),
+              startButton(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget startButton() {
+    return MaterialButton(
+      onPressed: () {
+        setState(() {
+          difful = "Clicked";
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.white,
+            width: 5,
+          ),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+        child: const Text(
+          "Start",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 35,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget diff(text) {
+    return Text(
+      text,
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 25,
+      ),
+    );
+  }
+}
+</code></pre>
+        </div>
+      </div>
+      <hr />
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Navigation + passing data to different screens</div>
+        <div class="content">
+          <p>entry_page.dart</p>
+          <pre><code>  Widget startButton() {
+    return MaterialButton(
+      onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) {
+          return GamePage(
+            difficultyLeavel: difful.toLowerCase(),
+          );
+        }));
+      },
+      color: Colors.blue,
+      child: const Text(
+        "Start",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 35,
+        ),
+      ),
+    );
+  }</code></pre>
+
+          <p>game_page.dart</p>
+          <pre><code>class GamePage extends StatelessWidget {
+  double? height, width;
+
+  final String difficultyLeavel;
+
+  GamePageProvider? pageProvider;
+
+  GamePage({super.key, required this.difficultyLeavel});
+
+  @override
+  Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    return ChangeNotifierProvider(
+      create: (contest) => GamePageProvider(
+        context: context,
+        difficultyLevel: difficultyLeavel,
+      ),
+      child: buildUI(),
+    );
+  }</code></pre>
+        </div>
+      </div>
+      <hr />
+      <hr />
+      <div class="dropdown">
+        <div class="heading">Final code</div>
+        <div class="content">
+          folder_structure:
+          <pre><code>  
+/assets
+    /fonts
+      FiraCode-Regular.ttf
+/lib
+  main.dart
+  /pages
+    entry_page.dart
+    game_page.dart
+  /providers
+    game_page_provider.dart
+          </code></pre>
+          <p>main.dart</p>
+          <pre><code>import 'package:flutter/material.dart';
+import 'package:friviaa/pages/entry_page.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Friviaa',
+      theme: ThemeData(
+        fontFamily: 'FiraCode',
+        scaffoldBackgroundColor: const Color.fromRGBO(31, 31, 31, 1),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const EntryPage(),
+    );
+  }
+}
+</code></pre>
+          <p>entry_page.dart</p>
+          <pre><code>import 'package:flutter/material.dart';
+import 'package:friviaa/pages/game_page.dart';
+
+class EntryPage extends StatefulWidget {
+  const EntryPage({super.key});
+
+  @override
+  State&lt;EntryPage&gt; createState() {
+    return EntryPageState();
+  }
+}
+
+class EntryPageState extends State&lt;EntryPage&gt; {
+  double currentValue = 0;
+  String difful = "Easy";
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const Text(
+                "Friviaa",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 35,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              diff(difful),
+              const SizedBox(
+                height: 20,
+              ),
+              Slider(
+                label: "Difficulty",
+                value: currentValue,
+                onChanged: (e) {
+                  setState(() {
+                    currentValue = e;
+                    if (e == 0) {
+                      difful = "Easy";
+                    } else if (e > 0 && e < 1) {
+                      difful = "Medium";
+                    } else if (e == 1) {
+                      difful = "Hard";
+                    }
+                  });
+                },
+                activeColor: Colors.blue,
+                divisions: 2,
+              ),
+              const SizedBox(
+                height: 35,
+              ),
+              startButton(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget startButton() {
+    return MaterialButton(
+      onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) {
+          return GamePage(
+            difficultyLeavel: difful.toLowerCase(),
+          );
+        }));
+      },
+      color: Colors.blue,
+      child: const Text(
+        "Start",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 35,
+        ),
+      ),
+    );
+  }
+
+  Widget diff(text) {
+    return Text(
+      text,
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 25,
+      ),
+    );
+  }
+}
+</code></pre>
+          <p>game_page.dart</p>
+          <pre><code>import 'package:flutter/material.dart';
+import 'package:friviaa/providers/game_page_provider.dart';
+import 'package:provider/provider.dart';
+
+class GamePage extends StatelessWidget {
+  double? height, width;
+
+  final String difficultyLeavel;
+
+  GamePageProvider? pageProvider;
+
+  GamePage({super.key, required this.difficultyLeavel});
+
+  @override
+  Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    return ChangeNotifierProvider(
+      create: (contest) => GamePageProvider(
+        context: context,
+        difficultyLevel: difficultyLeavel,
+      ),
+      child: buildUI(),
+    );
+  }
+
+  Widget buildUI() {
+    return Builder(
+      builder: (context) {
+        pageProvider = context.watch&lt;GamePageProvider&gt;();
+        if (pageProvider!.questions != null) {
+          return Scaffold(
+            body: SafeArea(
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: height! * 0.05,
+                ),
+                child: gameUI(),
+              ),
+            ),
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget gameUI() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        questionText(),
+        Column(
+          children: [
+            trueButton(),
+            SizedBox(
+              height: height! * 0.01,
+            ),
+            falseButton(),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget questionText() {
+    return Text(
+      pageProvider!.getCurrentQuestionText(),
+      style: const TextStyle(
+        fontSize: 25,
+        color: Colors.white,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+
+  Widget trueButton() {
+    return MaterialButton(
+      onPressed: () {
+        pageProvider!.answerQuestion('True');
+      },
+      color: Colors.green,
+      minWidth: width! * 0.80,
+      height: height! * 0.10,
+      child: const Text(
+        'True',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 25,
+        ),
+      ),
+    );
+  }
+
+  Widget falseButton() {
+    return MaterialButton(
+      onPressed: () {
+        pageProvider!.answerQuestion('False');
+      },
+      color: Colors.red,
+      minWidth: width! * 0.80,
+      height: height! * 0.10,
+      child: const Text(
+        'False',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 25,
+        ),
+      ),
+    );
+  }
+}
+</code></pre>
+          <p>game_page_provider.dart</p>
+          <pre><code>import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+
+class GamePageProvider extends ChangeNotifier {
+  final Dio dio = Dio();
+  final int maxQuestions = 10;
+  final String difficultyLevel;
+  List? questions;
+  BuildContext context;
+  int currentQuestionCount = 0;
+  int correct = 0;
+
+  GamePageProvider({required this.context, required this.difficultyLevel}) {
+    dio.options.baseUrl = 'https://opentdb.com/api.php';
+    getQuestionFromAPI();
+  }
+
+  Future&lt;void&gt; getQuestionFromAPI() async {
+    var response = await dio.get(
+      '',
+      queryParameters: {
+        'amount': maxQuestions,
+        'type': 'boolean',
+        'difficulty': difficultyLevel,
+      },
+    );
+    var data = jsonDecode(response.toString());
+    questions = data['results'];
+    notifyListeners(); // so that UI knows that it has to rerender
+  }
+
+  String getCurrentQuestionText() {
+    return questions![currentQuestionCount]['question'];
+  }
+
+  void answerQuestion(String answer) async {
+    bool isCorrect =
+        questions![currentQuestionCount]['correct_answer'] == answer;
+
+    if (isCorrect) correct++;
+
+    currentQuestionCount++;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: isCorrect ? Colors.green : Colors.red,
+          title: Icon(
+            isCorrect ? Icons.check_circle : Icons.cancel_sharp,
+            color: Colors.white,
+          ),
+        );
+      },
+    );
+
+    await Future.delayed(
+      const Duration(seconds: 1),
+    );
+    Navigator.pop(context);
+    if (currentQuestionCount == maxQuestions) {
+      endGame();
+    } else {
+      notifyListeners();
+    }
+  }
+
+  Future&lt;void&gt; endGame() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.blue,
+          title: const Text(
+            'End Game!',
+            style: TextStyle(
+              fontSize: 25,
+              color: Colors.white,
+            ),
+          ),
+          content: Text("Score: $correct/$maxQuestions"),
+        );
+      },
+    );
+    await Future.delayed(
+      const Duration(seconds: 3),
+    );
+    Navigator.pop(context);
+    Navigator.pop(context);
+    notifyListeners();
+  }
+}
+</code></pre>
+        </div>
+      </div>
+      <hr />
+
+      <script src="../script.js"></script>
+    </div>
+  </body>
+</html>

@@ -488,7 +488,341 @@ class DetailsPage extends StatelessWidget {
             <hr />
             <div class="dropdown">
                 <div class="heading">Final Code</div>
-                <div class="content">this is a heading and here is some data</div>
+                <div class="content">
+                    <p>/assets/config/main.json</p>
+                    <pre><code>{
+    "COING_API_BASE_KEY": "https://api.coingecko.com/api/v3/"
+}</code></pre>
+                    <p>lib/models/app_config.dart</p>
+                    <pre><code>class AppConfig {
+  String COIN_API_BASE_URL;
+  AppConfig({required this.COIN_API_BASE_URL});
+}</code></pre>
+                    <p>lib/services/http_service.dart</p>
+                    <pre><code>import 'package:dio/dio.dart';
+import '../models/app_config.dart';
+import 'package:get_it/get_it.dart';
+
+class HTTPService {
+  final Dio dio = Dio();
+
+  AppConfig? appConfig;
+  String? baseUrl;
+  HTTPService() {
+    appConfig = GetIt.instance.get&lt;AppConfig&gt;();
+    baseUrl = appConfig!.COIN_API_BASE_URL;
+  }
+
+  Future&lt;Response?&gt; get(String path) async {
+    try {
+      String url = "$baseUrl$path";
+      // return await dio.get(url);
+      /* guery parameters
+        dio.get("path" , queryParameters: {"id":1});
+
+        headers
+        dio.get("path" , Options(headers: {"API_KEY": ""}));
+      */
+      Response resp = await dio.get(url);
+      return resp;
+    } catch (e) {
+      print('unable to perform a get request');
+      print(e);
+    }
+    return null;
+  }
+}
+</code></pre>
+                    <p>lib/pages/details_page.dart</p>
+                    <pre><code>import 'package:flutter/material.dart';
+
+class DetailsPage extends StatelessWidget {
+  Map exchangeRates;
+
+  DetailsPage({super.key, required this.exchangeRates});
+
+  @override
+  Widget build(BuildContext context) {
+    List&lt;Widget&gt; list = [];
+
+    List a = exchangeRates.keys.toList();
+    for (int i = 0; i &lt; 15; i++) {
+      list.add(textData("${a[i]}  :  ${exchangeRates[a[i]]}"));
+    }
+
+    return Scaffold(
+      backgroundColor: Colors.red,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: list,
+      ),
+    );
+  }
+
+  Widget textData(data) {
+    return Row(
+      children: [
+        Text(
+          data,
+          style: const TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+}
+</code></pre>
+                    <p>main.dart</p>
+                    <pre><code>import 'dart:convert';
+import 'package:coincap/models/app_config.dart';
+import 'package:coincap/pages/home_page.dart';
+import 'package:coincap/services/http_service.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await loadConfig();
+  registerHttpService();
+  await GetIt.instance.get&lt;HTTPService&gt;().get('/coins/bitcoin');
+  runApp(const MyApp());
+}
+
+void registerHttpService() {
+  GetIt.instance.registerSingleton&lt;HTTPService&gt;(
+    HTTPService(),
+  );
+}
+
+Future&lt;void&gt; loadConfig() async {
+  String configContent = await rootBundle.loadString('assets/config/main.json');
+  Map configData = jsonDecode(configContent);
+  GetIt.instance.registerSingleton&lt;AppConfig&gt;(
+    AppConfig(
+      COIN_API_BASE_URL: configData['COING_API_BASE_KEY'],
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'CoinCap',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+        scaffoldBackgroundColor: const Color.fromRGBO(
+          88,
+          60,
+          197,
+          1,
+        ),
+      ),
+      home: HomePage(),
+    );
+  }
+}
+</code></pre>
+                    <p>lib/pages/home_page.dart</p>
+                    <pre><code>import 'dart:convert';
+
+import 'package:coincap/pages/details_page.dart';
+import 'package:coincap/services/http_service.dart';
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+  @override
+  State&lt;StatefulWidget&gt; createState() {
+    return HomePageState();
+  }
+}
+
+List&lt;String&gt; coins = ['bitcoin', 'ethereum', 'tether', 'litecoin'];
+
+class HomePageState extends State&lt;HomePage&gt; {
+  double? height, width;
+
+  HTTPService? http;
+
+  String? dropDownValue;
+
+  @override
+  void initState() {
+    super.initState();
+    http = GetIt.instance.get&lt;HTTPService&gt;();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              selectedCoinDropdown(),
+              dataWidgets(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget selectedCoinDropdown() {
+    List&lt;DropdownMenuItem&lt;String&gt;&gt; items = coins.map((e) {
+      return DropdownMenuItem(
+        value: e,
+        child: Text(
+          e,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 40,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      );
+    }).toList();
+    return DropdownButton(
+      value: dropDownValue,
+      items: items,
+      onChanged: (value) {
+        setState(() {
+          dropDownValue = value;
+        });
+      },
+      dropdownColor: const Color.fromRGBO(83, 88, 206, 1),
+      iconSize: 30,
+      icon: const Icon(
+        Icons.arrow_drop_down_sharp,
+        color: Colors.white,
+      ),
+      underline: Container(),
+    );
+  }
+
+  Widget dataWidgets() {
+    return FutureBuilder(
+      future: http!.get('/coins/$dropDownValue'),
+      builder: (BuildContext context, AsyncSnapshot snapShot) {
+        if (snapShot.hasData) {
+          Map data = jsonDecode(
+            snapShot.data.toString(),
+          );
+          num usdPrice = data['market_data']['current_price']['usd'];
+          num change24h =
+              45; // data['market_data']['price_change_percentage_24h'];
+          Map exchangeRates = data['market_data']['current_price'];
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onDoubleTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                      return DetailsPage(exchangeRates: exchangeRates);
+                    }),
+                  );
+                },
+                child: coinImageWidget(
+                  data['image']['large'],
+                ),
+              ),
+              currentPriceWidget(usdPrice),
+              percentageChagneWidget(change24h),
+              descriptionCardWidget(
+                data['description']['en'],
+              ),
+            ],
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget currentPriceWidget(num rate) {
+    return Text(
+      "${rate.toStringAsFixed(2)} USD",
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+
+  Widget percentageChagneWidget(num change) {
+    return Text(
+      "${change.toString()} %",
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 15,
+        fontWeight: FontWeight.w300,
+      ),
+    );
+  }
+
+  Widget coinImageWidget(String imageURL) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        vertical: height! * 0.02,
+      ),
+      height: height! * 0.15,
+      width: width! * 0.15,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(
+            imageURL,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget descriptionCardWidget(String description) {
+    return Container(
+      height: height! * 0.45,
+      width: width! * 0.90,
+      margin: EdgeInsets.symmetric(
+        vertical: height! * 0.05,
+      ),
+      padding: EdgeInsets.symmetric(
+        vertical: height! * 0.01,
+        horizontal: height! * 0.01,
+      ),
+      color: const Color.fromRGBO(83, 88, 206, 0.5),
+      child: Text(
+        description,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+}
+</code></pre>
+                </div>
             </div>
             <hr />
         </div>
