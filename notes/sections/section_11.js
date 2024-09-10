@@ -559,6 +559,292 @@ class _BMIPageState extends State<BMIPage> {
   }
 }
 `,
+  code11: `  Widget _genderSelectContainer() {
+    return InfoCard(
+      height: _height! * 0.11,
+      width: _width! * 0.9,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text(
+            "Gender",
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          CupertinoSlidingSegmentedControl(
+            groupValue: gender,
+            children: const {
+              0: Text("Male"),
+              1: Text("Female"),
+            },
+            onValueChanged: (index) {
+              setState(() {
+                gender = index as int;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }`,
+  code12: `  Widget _calculateBMIButton() {
+    return Container(
+      height: _height! * 0.07,
+      child: CupertinoButton(
+        child: const Text("Calculate BMI"),
+        onPressed: () {
+          if (height > 0 && weight > 0 && age > 0) {
+            double bmi = (weight / pow(height, 2)) * 703;
+            print(bmi);
+          }
+        },
+      ),
+    );
+  }`,
+  code13: `  void _showResult(double bmi) {
+    String? status;
+    if (bmi < 18.5) {
+      status = "Underweight";
+    } else if (bmi >= 18.5 && bmi < 25) {
+      status = "Normal";
+    } else if (bmi >= 25 && bmi < 30) {
+      status = "Overweight";
+    } else if (bmi >= 30) {
+      status = "Obese";
+    }
+    showCupertinoDialog(
+      context: context,
+      builder: (_context) {
+        return CupertinoAlertDialog(
+          title: Text(status!),
+          content: Text(bmi.toStringAsFixed(2)),
+          actions: [
+            CupertinoDialogAction(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.pop(_context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _calculateBMIButton() {
+    return Container(
+      height: _height! * 0.07,
+      child: CupertinoButton(
+        child: const Text("Calculate BMI"),
+        onPressed: () {
+          if (height > 0 && weight > 0 && age > 0) {
+            double bmi = (weight / pow(height, 2)) * 703;
+            _showResult(bmi);
+          }
+        },
+      ),
+    );
+  }`,
+  code14: `import 'package:shared_preferences/shared_preferences.dart';
+
+
+
+  void _showResult(double bmi) {
+    String? status;
+    if (bmi < 18.5) {
+      status = "Underweight";
+    } else if (bmi >= 18.5 && bmi < 25) {
+      status = "Normal";
+    } else if (bmi >= 25 && bmi < 30) {
+      status = "Overweight";
+    } else if (bmi >= 30) {
+      status = "Obese";
+    }
+    showCupertinoDialog(
+      context: context,
+      builder: (_context) {
+        return CupertinoAlertDialog(
+          title: Text(status!),
+          content: Text(bmi.toStringAsFixed(2)),
+          actions: [
+            CupertinoDialogAction(
+              child: const Text('OK'),
+              onPressed: () {
+                _saveResult(bmi.toString(), status!);
+                Navigator.pop(_context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+    
+  void _saveResult(String bmi, String status) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('bmi_date', DateTime.now().toString());
+    await prefs.setStringList('bmi_data', <String>[bmi, status]);
+  }`,
+  code15: `import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:ibmi/widgets/info_card.dart';
+
+class HistoryPage extends StatelessWidget {
+  double? _width, _height;
+
+  HistoryPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    _height = MediaQuery.of(context).size.height;
+    _width = MediaQuery.of(context).size.width;
+    return CupertinoPageScaffold(
+      child: _dataCard(),
+    );
+  }
+
+  Widget _dataCard() {
+    return Center(
+      child: InfoCard(
+        height: _height! * 0.25,
+        width: _width! * 0.75,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _statusText("Normal"),
+            _dateText("date"),
+            _bmiText('125'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _bmiText(String data) {
+    return Text(
+      data,
+      style: const TextStyle(
+        fontSize: 60,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+
+  Widget _statusText(String status) {
+    return Text(
+      status,
+      style: const TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+
+  Widget _dateText(String date) {
+    return Text(
+      date,
+      style: const TextStyle(
+        fontSize: 15,
+        fontWeight: FontWeight.w300,
+      ),
+    );
+  }
+}
+`,
+  code16: `import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:ibmi/widgets/info_card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class HistoryPage extends StatelessWidget {
+  double? _width, _height;
+
+  HistoryPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    _height = MediaQuery.of(context).size.height;
+    _width = MediaQuery.of(context).size.width;
+    return CupertinoPageScaffold(
+      child: _dataCard(),
+    );
+  }
+
+  Widget _dataCard() {
+    return FutureBuilder(
+      future: SharedPreferences.getInstance(),
+      builder: (context, snap) {
+        if (snap.hasData) {
+          final prefs = snap.data as SharedPreferences;
+          final date = prefs.getString('bmi_date');
+          final data = prefs.getStringList("bmi_data");
+          return Center(
+            child: InfoCard(
+              height: _height! * 0.25,
+              width: _width! * 0.75,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _statusText(data![1]),
+                  _dateText(date!),
+                  _bmiText(data[0]),
+                ],
+              ),
+            ),
+          );
+        } else {
+          return const Center(
+            child: CupertinoActivityIndicator(
+              color: Colors.blue,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _bmiText(String data) {
+    return Text(
+      double.parse(data).toStringAsFixed(2),
+      style: const TextStyle(
+        fontSize: 60,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+
+  Widget _statusText(String status) {
+    return Text(
+      status,
+      style: const TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+
+  Widget _dateText(String date) {
+    DateTime parseDate = DateTime.parse(date);
+    return Text(
+      '\${parseDate.day}/\${parseDate.month}/\${parseDate.year}',
+      style: const TextStyle(
+        fontSize: 15,
+        fontWeight: FontWeight.w300,
+      ),
+    );
+  }
+}
+`,
 };
 
 function addCode(id) {
